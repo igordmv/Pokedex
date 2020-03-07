@@ -1,21 +1,21 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: rootProject.projectDir.absolutePath + "/dependencies.gradle"
 
 android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
 
-    compileSdkVersion compile_version
-    buildToolsVersion build_tools_version
 
     defaultConfig {
-        minSdkVersion       min_version
-        targetSdkVersion    compile_version
+        minSdkVersion 22
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary true
+
     }
 
     buildTypes {
@@ -25,19 +25,10 @@ android {
         }
     }
 
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
-
-    lintOptions {
-        abortOnError false
-    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':core')
-    implementation project(path: ':splash')
 
     implementation app_compat
     implementation kotlin
@@ -47,6 +38,4 @@ dependencies {
     implementation android_coroutines
     implementation glide
     implementation design
-
-    testImplementation junit
 }

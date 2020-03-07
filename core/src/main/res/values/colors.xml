@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="progress_bar_start_color">#ea2a2a</color>
+    <color name="progress_bar_center_color">#d841a3</color>
+    <color name="progress_bar_end_color">#4056d6</color>
+</resources>

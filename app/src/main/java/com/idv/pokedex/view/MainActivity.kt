@@ -1,7 +1,8 @@
-package com.idv.pokedex
+package com.idv.pokedex.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.idv.pokedex.R
 
 class MainActivity : AppCompatActivity() {
 
