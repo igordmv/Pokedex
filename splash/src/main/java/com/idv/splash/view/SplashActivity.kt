@@ -17,7 +17,7 @@ abstract class SplashActivity : AppCompatActivity() {
         Handler().postDelayed({
             navigator.navigateMain()
             finish()
-        }, 3 * SECONDS)
+        }, 5 * SECONDS)
     }
 
     companion object {

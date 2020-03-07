@@ -12,11 +12,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="BaseProgressBarStyle" parent="Widget.AppCompat.ProgressBar">
-        <item name="android:progressDrawable">@drawable/rotate_shape_gradient_progressbar</item>
-        <item name="android:indeterminateDrawable">@drawable/rotate_shape_gradient_progressbar</item>
-    </style>
-
     <style name="SplashTheme" parent="Theme.Base.NoActionBar">
     </style>
 

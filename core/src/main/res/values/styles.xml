@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BaseProgressBarStyle" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:progressDrawable">@drawable/rotate_shape_gradient_progressbar</item>
+        <item name="android:indeterminateDrawable">@drawable/rotate_shape_gradient_progressbar</item>
+    </style>
+</resources>
