@@ -1,19 +1,24 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply from: rootProject.projectDir.absolutePath + "/dependencies.gradle"
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.2"
+    compileSdkVersion compile_version
+    buildToolsVersion build_tools_version
 
     defaultConfig {
-        minSdkVersion 22
-        targetSdkVersion 29
+        minSdkVersion min_version
+        targetSdkVersion compile_version
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
+        vectorDrawables.useSupportLibrary true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 
     buildTypes {
@@ -23,14 +28,26 @@ android {
         }
     }
 
+    lintOptions {
+        abortOnError false
+    }
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.2.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation project(path: ':core')
+    api project(path: ':pokemon-entity')
+
+    implementation kotlin_coroutines
+    implementation kotlin
+    implementation app_compat
+    implementation constraint_layout
+
+    implementation retrofit
+    implementation retrofit_converter
+
+    testImplementation junit
+    testImplementation kotlin_coroutines_test
+    testImplementation mockito_kotlin
 }

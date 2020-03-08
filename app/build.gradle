@@ -38,6 +38,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':core')
     implementation project(path: ':splash')
+    implementation project(path: ':pokemon')
 
     implementation constraint_layout
 
@@ -49,6 +50,9 @@ dependencies {
     implementation android_coroutines
     implementation glide
     implementation design
+
+    implementation lifecycle_ext
+    implementation lifecycle_viewmodel_ktx
 
     testImplementation junit
 }

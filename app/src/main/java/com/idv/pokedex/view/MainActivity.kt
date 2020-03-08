@@ -3,29 +3,46 @@ package com.idv.pokedex.view
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.util.TypedValue
 import android.view.Menu
-import android.view.MenuInflater
+import android.view.View
 import android.widget.EditText
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import com.idv.core.extensions.runOnBackground
+import com.idv.pokedex.MainController
 import com.idv.pokedex.R
+import com.idv.pokedex.view.presenter.PokemonViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, TextWatcher {
 
     private lateinit var searchView: SearchView
     private lateinit var searchViewText: EditText
+    private var controller : MainController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         this.setSupportActionBar(searchToolbar)
+
+        controller = MainController.Builder()
+            .setActivity(this)
+            .setLoadingObserver(loadingObserver)
+            .setErrorObserver(errorObserver)
+            .setPokemonObserver(pokemonObserver)
+            .build()
+
+        runOnBackground {
+            controller?.getPokemon("1")
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -78,4 +95,27 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, TextWa
         return true
     }
 
+    private val pokemonObserver =
+        Observer<PokemonViewModel> { pokemonObserver ->
+            Toast.makeText(this, pokemonObserver.name, Toast.LENGTH_LONG).show()
+        }
+
+    private val loadingObserver = Observer<Boolean> { showLoading ->
+        if(showLoading)
+            progressBar.visibility = View.VISIBLE
+        else
+            progressBar.visibility = View.GONE
+    }
+
+    private val errorObserver = Observer<Boolean> { hasError ->
+        if (hasError) {
+            Toast.makeText(this, TOAST_FAIL_REQUEST, Toast.LENGTH_LONG).show()
+        } else {
+
+        }
+    }
+
+    companion object {
+        const val TOAST_FAIL_REQUEST = "Erro ao fazer request."
+    }
 }
