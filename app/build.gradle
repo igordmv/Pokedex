@@ -39,6 +39,8 @@ dependencies {
     implementation project(path: ':core')
     implementation project(path: ':splash')
 
+    implementation constraint_layout
+
     implementation app_compat
     implementation kotlin
     implementation retrofit

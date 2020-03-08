@@ -3,4 +3,7 @@
     <color name="progress_bar_start_color">#ea2a2a</color>
     <color name="progress_bar_center_color">#d841a3</color>
     <color name="progress_bar_end_color">#4056d6</color>
+
+    <color name="toolbar_background_color">#FF000000</color>
+    <color name="toolbar_text_color">#FFFFFF</color>
 </resources>
