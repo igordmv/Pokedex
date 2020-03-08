@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, TextWa
                 )
             )
         searchViewText.addTextChangedListener(this)
-        searchView.requestFocus()
     }
 
     override fun onNewIntent(intent: Intent?) {
