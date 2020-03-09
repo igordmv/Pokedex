@@ -22,7 +22,7 @@ internal class MainPresenterImpl(private val mapper : MainMapper) : MainPresente
      }
 
     override fun presentLoadingState(showLoading: Boolean) {
-        loadingObserver.postValue(true)
+        loadingObserver.postValue(showLoading)
         errorObserver.postValue(false)
     }
 
