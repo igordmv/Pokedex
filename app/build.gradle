@@ -55,4 +55,6 @@ dependencies {
     implementation lifecycle_viewmodel_ktx
 
     testImplementation junit
+    testImplementation mockito_kotlin
+    testImplementation arch_core
 }
