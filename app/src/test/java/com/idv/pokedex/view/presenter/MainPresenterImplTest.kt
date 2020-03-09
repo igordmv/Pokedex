@@ -3,8 +3,8 @@ package com.idv.pokedex.view.presenter
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.idv.pokedex.view.mapper.MainMapper
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.verify
+import com.idv.pokemon_entity.Pokemon
+import com.nhaarman.mockitokotlin2.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -19,6 +19,7 @@ internal class MainPresenterImplTest {
     private val pokemonObserver = mock<Observer<PokemonViewModel>>()
     private val mapper = mock<MainMapper>()
     private val subject = MainPresenterImpl(mapper)
+    private val pokemon = Pokemon("name")
 
     @Before
     fun before() {
@@ -46,5 +47,15 @@ internal class MainPresenterImplTest {
         subject.presentLoadingState(false)
         verify(loadingObserver).onChanged(false)
         verify(errorObserver).onChanged(false)
+    }
+
+    @Test
+    fun `when call presentPokemon expect post value on observer`(){
+        val mappedPokemon = any<PokemonViewModel>()
+        whenever(mapper.map(pokemon)).doReturn(mappedPokemon)
+        subject.presentPokemon(pokemon)
+        verify(loadingObserver).onChanged(false)
+        verify(errorObserver).onChanged(false)
+        verify(pokemonObserver).onChanged(mappedPokemon)
     }
 }
