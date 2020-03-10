@@ -1,6 +1,6 @@
-package com.idv.pokedex.view.mapper
+package com.idv.pokemon_list.view.mapper
 
-import com.idv.pokedex.view.presenter.PokemonViewModel
+import com.idv.pokemon_list.view.presenter.PokemonViewModel
 import com.idv.pokemon_entity.Pokemon
 
 internal interface MainMapper {
@@ -10,7 +10,7 @@ internal interface MainMapper {
     fun mapPokemons(pokemons: List<Pokemon>): List<PokemonViewModel>
 
     companion object Factory {
-        fun make() : MainMapper{
+        fun make() : MainMapper {
             return MainMapperImpl()
         }
     }

@@ -1,21 +1,24 @@
-package com.idv.pokedex.view.adapter
+package com.idv.pokemon_list.view.adapter
 
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.globo.globosatplay.core.ImageConverter
-import com.idv.pokedex.R
-import com.idv.pokedex.view.presenter.PokemonViewModel
+import com.idv.pokemon_list.R
+import com.idv.pokemon_list.view.presenter.PokemonViewModel
 import kotlinx.android.synthetic.main.view_holder_pokemon.view.*
 import java.lang.ref.WeakReference
 
-internal class PokemonAdapter(private val context : Context, private val pokemons : List<PokemonViewModel>) : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
+internal class PokemonAdapter(private val context : Context, private val pokemons : List<PokemonViewModel>) : androidx.recyclerview.widget.RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.view_holder_pokemon, parent, false)
-        return PokemonViewHolder(view, WeakReference(context))
+        val view = LayoutInflater.from(context)
+            .inflate(R.layout.view_holder_pokemon, parent, false)
+        return PokemonViewHolder(
+            view,
+            WeakReference(context)
+        )
     }
 
     override fun getItemCount(): Int = pokemons.size
@@ -27,7 +30,8 @@ internal class PokemonAdapter(private val context : Context, private val pokemon
         }
     }
 
-    class PokemonViewHolder(itemView: View, private val activityRef: WeakReference<Context>) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    class PokemonViewHolder(itemView: View, private val activityRef: WeakReference<Context>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
 
         private var view: View = itemView
         private var pokemon: PokemonViewModel? = null
@@ -46,7 +50,13 @@ internal class PokemonAdapter(private val context : Context, private val pokemon
             text.text = result.name.capitalize()
 
             activityRef.get()?.let { context ->
-                ImageConverter.load(context, result.image, imageView, POKEMON_WIDTH ,POKEMON_HEIGHT )
+                ImageConverter.load(
+                    context,
+                    result.image,
+                    imageView,
+                    POKEMON_WIDTH,
+                    POKEMON_HEIGHT
+                )
             }
 
             itemView.setOnClickListener(this)

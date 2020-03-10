@@ -1,29 +1,16 @@
 package com.idv.pokedex.view.presenter
 
 import androidx.lifecycle.MutableLiveData
-import com.idv.pokedex.view.mapper.MainMapper
-import com.idv.pokemon_entity.Pokemon
 
 internal interface MainPresenter {
 
-    fun presentPokemon(pokemon: Pokemon)
+    fun showPokemonList()
 
-    fun presentError()
-
-    fun presentLoadingState(showLoading : Boolean)
-
-    fun getErrorObservable(): MutableLiveData<Boolean>
-
-    fun getLoadingObservable(): MutableLiveData<Boolean>
-
-    fun getPokemonObservable(): MutableLiveData<List<PokemonViewModel>>
-
-    fun presentPokemons(pokemons: List<Pokemon>)
+    fun getShowPokemonListObservable(): MutableLiveData<Boolean>
 
     companion object Factory {
-        fun make() : MainPresenter{
-            val mapper = MainMapper.make()
-            return MainPresenterImpl(mapper)
+        fun make () : MainPresenter {
+            return MainPresenterImpl()
         }
     }
 }

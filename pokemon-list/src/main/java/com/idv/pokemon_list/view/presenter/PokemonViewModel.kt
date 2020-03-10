@@ -1,4 +1,4 @@
-package com.idv.pokedex.view.presenter
+package com.idv.pokemon_list.view.presenter
 
 internal data class PokemonViewModel (
     val name : String,

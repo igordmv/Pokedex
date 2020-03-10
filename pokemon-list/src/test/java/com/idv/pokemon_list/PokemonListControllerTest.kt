@@ -1,18 +1,19 @@
-package com.idv.pokedex
+package com.idv.pokemon_list
 
-import com.idv.pokedex.view.presenter.MainPresenter
 import com.idv.pokemon.usecases.get.PokemonGetter
 import com.idv.pokemon_entity.Pokemon
+import com.idv.pokemon_list.view.presenter.PokemonListPresenter
 import com.nhaarman.mockitokotlin2.*
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import java.io.IOException
 
-internal class MainControllerTest  {
+internal class PokemonListControllerTest  {
 
     private val pokemonGetter = mock<PokemonGetter>()
-    private val presenter = mock<MainPresenter>()
-    private val subject = MainController(pokemonGetter, presenter)
+    private val presenter = mock<PokemonListPresenter>()
+    private val subject =
+        PokemonListController(pokemonGetter, presenter)
     private val pokemon = Pokemon("name", "id", "image")
 
     @Test

@@ -1,21 +1,24 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply from: rootProject.projectDir.absolutePath + "/dependencies.gradle"
 
 android {
-
     compileSdkVersion compile_version
     buildToolsVersion build_tools_version
 
     defaultConfig {
-        minSdkVersion       min_version
-        targetSdkVersion    compile_version
+        minSdkVersion min_version
+        targetSdkVersion compile_version
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
     }
 
     buildTypes {
@@ -25,21 +28,16 @@ android {
         }
     }
 
-    testOptions {
-        unitTests.returnDefaultValues = true
-    }
-
     lintOptions {
         abortOnError false
     }
 }
 
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(path: ':core')
-    implementation project(path: ':splash')
     implementation project(path: ':pokemon')
-    implementation project(path: ':pokemon-list')
 
     implementation constraint_layout
 

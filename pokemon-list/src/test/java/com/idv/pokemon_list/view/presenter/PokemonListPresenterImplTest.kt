@@ -1,15 +1,15 @@
-package com.idv.pokedex.view.presenter
+package com.idv.pokemon_list.view.presenter
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
-import com.idv.pokedex.view.mapper.MainMapper
 import com.idv.pokemon_entity.Pokemon
+import com.idv.pokemon_list.view.mapper.MainMapper
 import com.nhaarman.mockitokotlin2.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-internal class MainPresenterImplTest {
+internal class PokemonListPresenterImplTest {
 
     @get:Rule
     var rule = InstantTaskExecutorRule()
@@ -18,7 +18,7 @@ internal class MainPresenterImplTest {
     private val errorObserver = mock<Observer<Boolean>>()
     private val pokemonObserver = mock<Observer<List<PokemonViewModel>>>()
     private val mapper = mock<MainMapper>()
-    private val subject = MainPresenterImpl(mapper)
+    private val subject = PokemonListPresenterImpl(mapper)
     private val pokemon = Pokemon("name", "id", "image")
 
     @Before

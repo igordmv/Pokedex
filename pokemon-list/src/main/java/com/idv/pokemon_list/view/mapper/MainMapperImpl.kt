@@ -1,6 +1,6 @@
-package com.idv.pokedex.view.mapper
+package com.idv.pokemon_list.view.mapper
 
-import com.idv.pokedex.view.presenter.PokemonViewModel
+import com.idv.pokemon_list.view.presenter.PokemonViewModel
 import com.idv.pokemon_entity.Pokemon
 
 internal class MainMapperImpl : MainMapper {
