@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.idv.core.service.RetrofitServiceFactory
 import com.idv.pokedex.view.MainActivity
 import com.idv.pokedex.view.presenter.MainPresenter
-import com.idv.pokedex.view.presenter.PokemonViewModel
+import com.idv.pokedex.view.presenter.PokemonsViewModel
 import com.idv.pokemon.usecases.get.PokemonGetter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,12 +28,21 @@ internal class MainController(
         }
     }
 
+    fun getFirstPokemons() = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            presenter.presentLoadingState(true)
+            val pokemons = pokemonGetter.getPokemons()
+            presenter.presentPokemons(pokemons)
+        } catch (e : IOException) {
+            presenter.presentError()
+        }
+    }
 
     class Builder() {
         private lateinit var activityRef: WeakReference<MainActivity>
         private lateinit var loadingObserver: Observer<Boolean>
         private lateinit var errorObserver: Observer<Boolean>
-        private lateinit var pokemonObserver: Observer<PokemonViewModel>
+        private lateinit var pokemonsObserver: Observer<PokemonsViewModel>
 
         fun setActivity(activity: MainActivity) = apply {
             this.activityRef = WeakReference(activity)
@@ -47,8 +56,8 @@ internal class MainController(
             this.loadingObserver = loadingObserver
         }
 
-        fun setPokemonObserver(pokemonObserver : Observer<PokemonViewModel>) = apply {
-            this.pokemonObserver = pokemonObserver
+        fun setPokemonsObserver(pokemonsObserver : Observer<PokemonsViewModel>) = apply {
+            this.pokemonsObserver = pokemonsObserver
         }
 
         fun build() : MainController? {
@@ -57,7 +66,7 @@ internal class MainController(
                 val presenter = MainPresenter.make()
                 presenter.getErrorObservable().observe(activity, errorObserver)
                 presenter.getLoadingObservable().observe(activity, loadingObserver)
-                presenter.getPokemonObservable().observe(activity, pokemonObserver)
+                presenter.getPokemonObservable().observe(activity, pokemonsObserver)
 
 
                 val pokemonGetter =

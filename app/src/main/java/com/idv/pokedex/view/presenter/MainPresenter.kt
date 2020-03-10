@@ -16,7 +16,9 @@ internal interface MainPresenter {
 
     fun getLoadingObservable(): MutableLiveData<Boolean>
 
-    fun getPokemonObservable(): MutableLiveData<PokemonViewModel>
+    fun getPokemonObservable(): MutableLiveData<PokemonsViewModel>
+
+    fun presentPokemons(pokemons: List<Pokemon>)
 
     companion object Factory {
         fun make() : MainPresenter{

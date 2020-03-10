@@ -2,6 +2,7 @@ package com.idv.pokemon.service
 
 import com.idv.core.service.ServiceFactory
 import com.idv.pokemon.service.retrofitmodel.PokemonResponseModel
+import com.idv.pokemon.service.retrofitmodel.PokemonsResponseModel
 import java.io.IOException
 
 internal class PokemonServiceImpl(factory: ServiceFactory) : PokemonService {
@@ -11,6 +12,18 @@ internal class PokemonServiceImpl(factory: ServiceFactory) : PokemonService {
     override suspend fun getPokemon(identifier: String): PokemonResponseModel {
         try {
             val response = service.getPokemon(POKEMON_URL + identifier).execute()
+            return response.body()!!
+        } catch (e: Exception) {
+            throw IOException(e.message)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            throw e
+        }
+    }
+
+    override suspend fun getPokemons(offset : Int?): PokemonsResponseModel {
+        try {
+            val response = service.getPokemons(offset?: 0).execute()
             return response.body()!!
         } catch (e: Exception) {
             throw IOException(e.message)

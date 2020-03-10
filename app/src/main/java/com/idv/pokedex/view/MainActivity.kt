@@ -18,7 +18,7 @@ import androidx.lifecycle.Observer
 import com.idv.core.extensions.runOnBackground
 import com.idv.pokedex.MainController
 import com.idv.pokedex.R
-import com.idv.pokedex.view.presenter.PokemonViewModel
+import com.idv.pokedex.view.presenter.PokemonsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, TextWatcher {
@@ -36,13 +36,12 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, TextWa
             .setActivity(this)
             .setLoadingObserver(loadingObserver)
             .setErrorObserver(errorObserver)
-            .setPokemonObserver(pokemonObserver)
+            .setPokemonsObserver(pokemonsObserver)
             .build()
 
         runOnBackground {
-            controller?.getPokemon("1")
+            controller?.getFirstPokemons()
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -95,9 +94,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, TextWa
         return true
     }
 
-    private val pokemonObserver =
-        Observer<PokemonViewModel> { pokemonObserver ->
-            Toast.makeText(this, pokemonObserver.name, Toast.LENGTH_LONG).show()
+    private val pokemonsObserver =
+        Observer<PokemonsViewModel> { pokemonsObserver ->
         }
 
     private val loadingObserver = Observer<Boolean> { showLoading ->

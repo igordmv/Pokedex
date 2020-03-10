@@ -16,7 +16,7 @@ internal class MainPresenterImplTest {
 
     private val loadingObserver = mock<Observer<Boolean>>()
     private val errorObserver = mock<Observer<Boolean>>()
-    private val pokemonObserver = mock<Observer<PokemonViewModel>>()
+    private val pokemonObserver = mock<Observer<PokemonsViewModel>>()
     private val mapper = mock<MainMapper>()
     private val subject = MainPresenterImpl(mapper)
     private val pokemon = Pokemon("name")
@@ -51,8 +51,8 @@ internal class MainPresenterImplTest {
 
     @Test
     fun `when call presentPokemon expect post value on observer`(){
-        val mappedPokemon = any<PokemonViewModel>()
-        whenever(mapper.map(pokemon)).doReturn(mappedPokemon)
+        val mappedPokemon = any<PokemonsViewModel>()
+        whenever(mapper.mapPokemon(pokemon)).doReturn(mappedPokemon)
         subject.presentPokemon(pokemon)
         verify(loadingObserver).onChanged(false)
         verify(errorObserver).onChanged(false)

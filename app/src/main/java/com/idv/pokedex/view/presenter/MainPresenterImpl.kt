@@ -7,11 +7,11 @@ import com.idv.pokemon_entity.Pokemon
 internal class MainPresenterImpl(private val mapper : MainMapper) : MainPresenter {
     private val loadingObserver = MutableLiveData<Boolean>()
     private val errorObserver = MutableLiveData<Boolean>()
-    private val pokemonObserver = MutableLiveData<PokemonViewModel>()
+    private val pokemonsObserver = MutableLiveData<PokemonsViewModel>()
 
     override fun presentPokemon(pokemon: Pokemon) {
-        val mappedPokemon = mapper.map(pokemon)
-        pokemonObserver.postValue(mappedPokemon)
+        val mappedPokemon = mapper.mapPokemon(pokemon)
+        pokemonsObserver.postValue(mappedPokemon)
         loadingObserver.postValue(false)
         errorObserver.postValue(false)
     }
@@ -26,9 +26,17 @@ internal class MainPresenterImpl(private val mapper : MainMapper) : MainPresente
         errorObserver.postValue(false)
     }
 
+    override fun presentPokemons(pokemons: List<Pokemon>) {
+        val mappedPokemons = mapper.mapPokemons(pokemons)
+        loadingObserver.postValue(false)
+        errorObserver.postValue(false)
+        pokemonsObserver.postValue(mappedPokemons)
+    }
+
     override fun getErrorObservable(): MutableLiveData<Boolean> = errorObserver
     override fun getLoadingObservable(): MutableLiveData<Boolean> = loadingObserver
-    override fun getPokemonObservable(): MutableLiveData<PokemonViewModel> = pokemonObserver
+    override fun getPokemonObservable(): MutableLiveData<PokemonsViewModel> = pokemonsObserver
+
 
 
 }
