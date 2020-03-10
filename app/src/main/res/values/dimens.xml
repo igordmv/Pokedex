@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="recyclerViewMarginBottom">20dp</dimen>
+    <dimen name="pokemonNameTextSize">20sp</dimen>
+    <dimen name="pokemonImageMarginEnd">20dp</dimen>
+    <dimen name="pokemonNameMarginStart">40dp</dimen>
+</resources>

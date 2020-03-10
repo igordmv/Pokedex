@@ -43,13 +43,17 @@ internal class PokemonAdapter(private val context : Context, private val pokemon
         fun bindView(result: PokemonViewModel){
             val text = itemView.pokemonName
             val imageView = itemView.pokemonImage
-            text.text = result.name
+            text.text = result.name.capitalize()
+
             activityRef.get()?.let { context ->
-                ImageConverter.load(context, result.image, imageView, 250 ,250 )
+                ImageConverter.load(context, result.image, imageView, POKEMON_WIDTH ,POKEMON_HEIGHT )
             }
 
             itemView.setOnClickListener(this)
         }
-
+        companion object {
+            private const val POKEMON_WIDTH = 200
+            private const val POKEMON_HEIGHT = 200
+        }
     }
 }
