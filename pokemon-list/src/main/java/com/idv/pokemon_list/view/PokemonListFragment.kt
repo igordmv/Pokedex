@@ -171,6 +171,8 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
                     pokemonRecyclerView.visibility = View.GONE
                     searchedPokemonConstraintLayout.visibility = View.VISIBLE
                     searchEmptyState?.visibility = View.GONE
+                    pokemonName.visibility = View.VISIBLE
+                    pokemonImage.visibility = View.VISIBLE
                     pokemonName.text = pokemon.name
                     ImageConverter.load(
                         requireContext(),
