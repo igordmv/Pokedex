@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.globo.globosatplay.core.ImageConverter
 import com.idv.pokedex.R
 import com.idv.pokedex.view.presenter.PokemonViewModel
 import kotlinx.android.synthetic.main.view_holder_pokemon.view.*
@@ -40,8 +41,13 @@ internal class PokemonAdapter(private val context : Context, private val pokemon
         }
 
         fun bindView(result: PokemonViewModel){
-            val text = itemView.viewHolderPokemon
+            val text = itemView.pokemonName
+            val imageView = itemView.pokemonImage
             text.text = result.name
+            activityRef.get()?.let { context ->
+                ImageConverter.load(context, result.image, imageView, 250 ,250 )
+            }
+
             itemView.setOnClickListener(this)
         }
 
