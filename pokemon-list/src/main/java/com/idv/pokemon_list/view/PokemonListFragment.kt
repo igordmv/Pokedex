@@ -183,6 +183,8 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
                     query?.let { query ->
                         pokemonRecyclerView.visibility = View.GONE
                         searchedPokemonConstraintLayout.visibility = View.VISIBLE
+                        pokemonName.visibility = View.GONE
+                        pokemonImage.visibility = View.GONE
                         val noResultFoundText = getString(R.string.fragment_pokemonlist_search_view_no_results_found)
                         val spannableString = SpannableString("$noResultFoundText \"$query\"")
                         spannableString.setSpan(
