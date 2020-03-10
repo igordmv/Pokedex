@@ -173,7 +173,7 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
                     searchEmptyState?.visibility = View.GONE
                     pokemonName.visibility = View.VISIBLE
                     pokemonImage.visibility = View.VISIBLE
-                    pokemonName.text = pokemon.name
+                    pokemonName.text = pokemon.name.capitalize()
                     ImageConverter.load(
                         requireContext(),
                         pokemon.image,
