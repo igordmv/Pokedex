@@ -9,13 +9,20 @@ internal class PokemonListPresenterImpl(private val mapper : MainMapper) : Pokem
     private val paginateLoadingObserver = MutableLiveData<Boolean>()
     private val errorObserver = MutableLiveData<Boolean>()
     private val pokemonsObserver = MutableLiveData<List<PokemonViewModel>>()
+    private val pokemonObserver = MutableLiveData<PokemonViewModel>()
     private val paginatedPokemonsObserver = MutableLiveData<List<PokemonViewModel>>()
 
-    override fun presentPokemon(pokemon: Pokemon) {
-        val mappedPokemon = mapper.mapPokemon(pokemon)
-        pokemonsObserver.postValue(listOf(mappedPokemon))
-        loadingObserver.postValue(false)
-        errorObserver.postValue(false)
+    override fun presentPokemon(pokemon: Pokemon?) {
+        pokemon?.let { pokemon ->
+            val mappedPokemon = mapper.mapPokemon(pokemon)
+            pokemonObserver.postValue(mappedPokemon)
+            loadingObserver.postValue(false)
+            errorObserver.postValue(false)
+        }?:run {
+            pokemonObserver.postValue(null)
+            loadingObserver.postValue(false)
+            errorObserver.postValue(false)
+        }
     }
 
     override fun presentError() {
@@ -52,7 +59,8 @@ internal class PokemonListPresenterImpl(private val mapper : MainMapper) : Pokem
     override fun getErrorObservable(): MutableLiveData<Boolean> = errorObserver
     override fun getLoadingObservable(): MutableLiveData<Boolean> = loadingObserver
     override fun getPaginateLoadingObservable(): MutableLiveData<Boolean> = paginateLoadingObserver
-    override fun getPokemonObservable(): MutableLiveData<List<PokemonViewModel>> = pokemonsObserver
+    override fun getPokemonsObservable(): MutableLiveData<List<PokemonViewModel>> = pokemonsObserver
+    override fun getPokemonObservable(): MutableLiveData<PokemonViewModel> = pokemonObserver
     override fun getPaginatedPokemonsObservable(): MutableLiveData<List<PokemonViewModel>> = paginatedPokemonsObserver
 
 

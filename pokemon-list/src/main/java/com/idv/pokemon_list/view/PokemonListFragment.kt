@@ -2,10 +2,13 @@ package com.idv.pokemon_list.view
 
 import android.app.SearchManager
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
+import android.text.Spannable
+import android.text.SpannableString
 import android.text.TextWatcher
-import android.util.Log
+import android.text.style.ForegroundColorSpan
 import android.util.TypedValue
 import android.view.*
 import android.widget.EditText
@@ -16,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.globo.globosatplay.core.ImageConverter
 import com.globo.globosatplay.core.fragment.StatelessFragment
 import com.idv.core.extensions.runOnBackground
 import com.idv.core.extensions.runOnUI
@@ -24,6 +28,7 @@ import com.idv.pokemon_list.R
 import com.idv.pokemon_list.view.adapter.PokemonAdapter
 import com.idv.pokemon_list.view.presenter.PokemonViewModel
 import kotlinx.android.synthetic.main.fragment_pokemonlist.*
+import java.util.*
 
 
 class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener, TextWatcher {
@@ -31,7 +36,9 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
     private lateinit var topHitsAdapter: PokemonAdapter
     private lateinit var searchView: SearchView
     private lateinit var searchViewText: EditText
+    private var query : String? = null
     private var controller: PokemonListController? = null
+    private var timer = Timer()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +59,7 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
             .setLoadingObserver(loadingObserver)
             .setErrorObserver(errorObserver)
             .setPokemonsObserver(pokemonsObserver)
+            .setPokemonObserver(pokemonObserver)
             .setPaginatedPokemonsObserver(paginatedPokemonsObserver)
             .setPaginateLoadingObserver(paginateLoadingObserver)
             .build()
@@ -63,7 +71,7 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    if(controller?.isScrolling == false) {
+                    if (controller?.isScrolling == false) {
                         controller?.getNextPage()
                     }
                 }
@@ -97,7 +105,27 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
         searchViewText.addTextChangedListener(this)
     }
 
-    override fun afterTextChanged(p0: Editable?) {
+    override fun afterTextChanged(text: Editable?) {
+        query = text.toString()
+        timer.cancel()
+        timer = Timer()
+        timer.schedule(
+            object : TimerTask() {
+                override fun run() {
+                    runOnUI {
+                        if (text.toString().length >= AUTO_SEARCH_TEXT_MIN_SIZE) {
+                            controller?.getPokemon(text.toString())
+                            searchView.clearFocus()
+                        } else {
+                            pokemonRecyclerView.visibility = View.VISIBLE
+                            searchedPokemonConstraintLayout.visibility = View.GONE
+                            searchView.clearFocus()
+                        }
+                    }
+                }
+            },
+            DELAY
+        )
     }
 
     override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
@@ -106,7 +134,11 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
     override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
     }
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
+    override fun onQueryTextSubmit(pokemon: String?): Boolean {
+        pokemon?.let {
+            controller?.getPokemon(pokemon)
+            searchView.clearFocus()
+        }
         return true
     }
 
@@ -115,13 +147,57 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
     }
 
     fun setSpelledQuery(message: String) {
-        Log.e("RECEBIDO", "RECEBIDO: $message")
+        query = message
+        val editableText = Editable.Factory().newEditable(message)
+        afterTextChanged(editableText)
+
+        runOnUI {
+            searchViewText.text = editableText
+            searchViewText.clearFocus()
+        }
     }
 
     private val paginatedPokemonsObserver =
         Observer<List<PokemonViewModel>> { pokemons ->
             runOnUI {
                 topHitsAdapter.addItems(pokemons)
+            }
+        }
+
+    private val pokemonObserver =
+        Observer<PokemonViewModel> { pokemon ->
+            runOnUI {
+                pokemon?.let { pokemon ->
+                    pokemonRecyclerView.visibility = View.GONE
+                    searchedPokemonConstraintLayout.visibility = View.VISIBLE
+                    searchEmptyState?.visibility = View.GONE
+                    pokemonName.text = pokemon.name
+                    ImageConverter.load(
+                        requireContext(),
+                        pokemon.image,
+                        pokemonImage,
+                        PokemonAdapter.PokemonViewHolder.POKEMON_WIDTH,
+                        PokemonAdapter.PokemonViewHolder.POKEMON_HEIGHT
+                    )
+                }?:run {
+                    query?.let { query ->
+                        pokemonRecyclerView.visibility = View.GONE
+                        searchedPokemonConstraintLayout.visibility = View.VISIBLE
+                        val noResultFoundText = getString(R.string.fragment_pokemonlist_search_view_no_results_found)
+                        val spannableString = SpannableString("$noResultFoundText \"$query\"")
+                        spannableString.setSpan(
+                            ForegroundColorSpan(Color.WHITE),
+                            spannableString.length - query.length - 1,
+                            spannableString.length - 1,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        searchEmptyState?.text = spannableString
+                        searchEmptyState?.visibility = View.VISIBLE
+
+                        searchViewText.clearFocus()
+                    }
+                }
+
             }
         }
 
@@ -160,12 +236,12 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
     private val errorObserver = Observer<Boolean> { hasError ->
         if (hasError) {
             Toast.makeText(requireContext(), TOAST_FAIL_REQUEST, Toast.LENGTH_LONG).show()
-        } else {
-
         }
     }
 
     companion object {
-        const val TOAST_FAIL_REQUEST = "Erro ao fazer request."
+        const val TOAST_FAIL_REQUEST = "Não foi possível fazer a requisição."
+        private const val DELAY: Long = 1000
+        private const val AUTO_SEARCH_TEXT_MIN_SIZE = 3
     }
 }

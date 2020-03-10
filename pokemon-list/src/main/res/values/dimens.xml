@@ -5,4 +5,9 @@
     <dimen name="pokemonImageMarginEnd">20dp</dimen>
     <dimen name="pokemonNameMarginStart">40dp</dimen>
     <dimen name="paginte_progress_bar_margin_bottom">40dp</dimen>
+    <dimen name="fragment_pokemonlist_empty_state_text_size">18sp</dimen>
+    <dimen name="fragment_pokemonlist_empty_state_margin_top">32dp</dimen>
+    <dimen name="fragment_pokemonlist_empty_state_margin_left">16dp</dimen>
+    <dimen name="fragment_pokemonlist_empty_state_margin_right">16dp</dimen>
+    <dimen name="fragment_search_empty_state_layout_width">0dp</dimen>
 </resources>

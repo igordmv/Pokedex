@@ -24,10 +24,13 @@ internal class PokemonListController(
     fun getPokemon(identifier : String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             presenter.presentLoadingState(true)
-            val pokemon = pokemonGetter.getPokemon(identifier)
+            val pokemon = pokemonGetter.getPokemon(identifier.toLowerCase())
             presenter.presentPokemon(pokemon)
         } catch (e : IOException) {
-            presenter.presentError()
+            if(e.message == "Not Found")
+                presenter.presentPokemon(null)
+            else
+                presenter.presentError()
         }
     }
 
@@ -67,6 +70,7 @@ internal class PokemonListController(
         private lateinit var paginateLoadingObserver: Observer<Boolean>
         private lateinit var errorObserver: Observer<Boolean>
         private lateinit var pokemonsObserver: Observer<List<PokemonViewModel>>
+        private lateinit var pokemonObserver: Observer<PokemonViewModel>
 
         fun setActivity(fragment: PokemonListFragment) = apply {
             this.fragmentRef = WeakReference(fragment)
@@ -88,6 +92,10 @@ internal class PokemonListController(
             this.pokemonsObserver = pokemonsObserver
         }
 
+        fun setPokemonObserver(pokemonObserver : Observer<PokemonViewModel>) = apply {
+            this.pokemonObserver = pokemonObserver
+        }
+
         fun setPaginatedPokemonsObserver(pokemonsObserver : Observer<List<PokemonViewModel>>) = apply {
             this.paginatedPokemonsObserver = pokemonsObserver
         }
@@ -98,7 +106,8 @@ internal class PokemonListController(
                 val presenter = PokemonListPresenter.make()
                 presenter.getErrorObservable().observe(fragment, errorObserver)
                 presenter.getLoadingObservable().observe(fragment, loadingObserver)
-                presenter.getPokemonObservable().observe(fragment, pokemonsObserver)
+                presenter.getPokemonsObservable().observe(fragment, pokemonsObserver)
+                presenter.getPokemonObservable().observe(fragment, pokemonObserver)
                 presenter.getPaginatedPokemonsObservable().observe(fragment,paginatedPokemonsObserver)
                 presenter.getPaginateLoadingObservable().observe(fragment,paginateLoadingObserver)
 

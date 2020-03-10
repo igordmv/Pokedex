@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fragment_pokemonlist_search_view_no_results_found">Não foram encontrados resultados para</string>
+</resources>

@@ -6,7 +6,7 @@ import com.idv.pokemon_entity.Pokemon
 
 internal interface PokemonListPresenter {
 
-    fun presentPokemon(pokemon: Pokemon)
+    fun presentPokemon(pokemon: Pokemon?)
 
     fun presentError()
 
@@ -20,7 +20,9 @@ internal interface PokemonListPresenter {
 
     fun getPaginateLoadingObservable(): MutableLiveData<Boolean>
 
-    fun getPokemonObservable(): MutableLiveData<List<PokemonViewModel>>
+    fun getPokemonsObservable(): MutableLiveData<List<PokemonViewModel>>
+
+    fun getPokemonObservable(): MutableLiveData<PokemonViewModel>
 
     fun getPaginatedPokemonsObservable(): MutableLiveData<List<PokemonViewModel>>
 

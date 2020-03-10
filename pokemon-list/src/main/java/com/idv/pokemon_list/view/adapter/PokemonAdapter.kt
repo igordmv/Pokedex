@@ -70,8 +70,8 @@ internal class PokemonAdapter(private val context : Context, private val pokemon
             itemView.setOnClickListener(this)
         }
         companion object {
-            private const val POKEMON_WIDTH = 200
-            private const val POKEMON_HEIGHT = 200
+            const val POKEMON_WIDTH = 200
+            const val POKEMON_HEIGHT = 200
         }
     }
 }

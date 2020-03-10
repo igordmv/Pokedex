@@ -23,6 +23,57 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/searchedPokemonConstraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/searchAppBar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/searchEmptyState"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:textColor="@color/fragment_pokemonlist_empty_state"
+            android:text="@string/fragment_pokemonlist_search_view_no_results_found"
+            android:textSize="@dimen/fragment_pokemonlist_empty_state_text_size"
+            android:layout_marginTop="@dimen/fragment_pokemonlist_empty_state_margin_top"
+            android:layout_marginEnd="@dimen/fragment_pokemonlist_empty_state_margin_right"
+            android:layout_marginStart="@dimen/fragment_pokemonlist_empty_state_margin_left"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/pokemonName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/pokemonNameMarginStart"
+            android:textSize="@dimen/pokemonNameTextSize"
+            android:fontFamily="@font/opensans_bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Bulbasaur"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/pokemonImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/pokemonImageMarginEnd"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:src="@drawable/ic_bulbasaur_foreground"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pokemonRecyclerView"
         android:layout_width="match_parent"

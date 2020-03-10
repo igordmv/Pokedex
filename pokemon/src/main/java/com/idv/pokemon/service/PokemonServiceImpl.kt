@@ -12,6 +12,10 @@ internal class PokemonServiceImpl(factory: ServiceFactory) : PokemonService {
     override suspend fun getPokemon(identifier: String): PokemonResponseModel {
         try {
             val response = service.getPokemon(POKEMON_URL + identifier).execute()
+            if(response.errorBody()?.string() == "Not Found") {
+                throw IOException("Not Found")
+            }
+
             return response.body()!!
         } catch (e: Exception) {
             throw IOException(e.message)
