@@ -47,4 +47,20 @@ internal class PokemonListControllerTest  {
         verify(presenter).presentLoadingState(true)
         verify(presenter).presentError()
     }
+
+    @Test
+    fun `test when getNextPage works expect call presentPaginatedPokemon`() = runBlocking {
+        whenever(pokemonGetter.getPokemons()).doReturn(listOf(pokemon))
+        subject.getNextPage().join()
+        verify(presenter).presentPaginateLoadingState(true)
+        verify(presenter).presentPaginatedPokemons(listOf(pokemon))
+    }
+
+    @Test
+    fun `test when getNextPage gives IOException expect call presentError`() = runBlocking {
+        whenever(pokemonGetter.getPokemons()).doThrow(IOException())
+        subject.getNextPage().join()
+        verify(presenter).presentPaginateLoadingState(true)
+        verify(presenter).presentError()
+    }
 }

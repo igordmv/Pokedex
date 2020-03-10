@@ -5,13 +5,15 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.globo.globosatplay.core.ImageConverter
 import com.idv.pokemon_list.R
 import com.idv.pokemon_list.view.presenter.PokemonViewModel
 import kotlinx.android.synthetic.main.view_holder_pokemon.view.*
 import java.lang.ref.WeakReference
 
-internal class PokemonAdapter(private val context : Context, private val pokemons : List<PokemonViewModel>) : androidx.recyclerview.widget.RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
+
+internal class PokemonAdapter(private val context : Context, private val pokemons : MutableList<PokemonViewModel>) : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
         val view = LayoutInflater.from(context)
             .inflate(R.layout.view_holder_pokemon, parent, false)
@@ -19,6 +21,12 @@ internal class PokemonAdapter(private val context : Context, private val pokemon
             view,
             WeakReference(context)
         )
+    }
+
+    fun addItems(newItems: List<PokemonViewModel>) {
+        val positionStart: Int = pokemons.size + 1
+        pokemons.addAll(newItems)
+        notifyItemRangeChanged(positionStart, pokemons.size)
     }
 
     override fun getItemCount(): Int = pokemons.size

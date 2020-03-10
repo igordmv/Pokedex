@@ -9,6 +9,6 @@ internal interface PokemonService {
     suspend fun getPokemon(identifier : String) : PokemonResponseModel
 
     @Throws(IOException::class)
-    suspend fun getPokemons(offset : Int? = 0) : PokemonsResponseModel
+    suspend fun getPokemons(offset : Int) : PokemonsResponseModel
 
 }

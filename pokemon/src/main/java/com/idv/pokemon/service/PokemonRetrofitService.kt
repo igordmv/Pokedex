@@ -13,5 +13,5 @@ internal interface PokemonRetrofitService {
     fun getPokemon(@Url url: String): Call<PokemonResponseModel>
 
     @GET("/api/v2/pokemon/")
-    fun getPokemons(@Query ("offset") offset: Int, @Query("limit") limit : Int = 20): Call<PokemonsResponseModel>
+    fun getPokemons(@Query ("offset") offset: Int, @Query("limit") limit : Int = 10): Call<PokemonsResponseModel>
 }

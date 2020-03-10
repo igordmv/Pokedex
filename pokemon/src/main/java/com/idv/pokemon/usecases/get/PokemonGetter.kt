@@ -13,7 +13,7 @@ interface PokemonGetter {
     suspend fun getPokemon(identifier : String) : Pokemon
 
     @Throws(IOException::class)
-    suspend fun getPokemons() : List<Pokemon>
+    suspend fun getPokemons(offset : Int? = 0) : List<Pokemon>
 
     @Throws(IOException::class)
     suspend fun getPokemonEvolutionChain(identifier: String) : PokemonEvolutionChain

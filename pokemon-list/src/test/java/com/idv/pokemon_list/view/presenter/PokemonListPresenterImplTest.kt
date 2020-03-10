@@ -15,8 +15,10 @@ internal class PokemonListPresenterImplTest {
     var rule = InstantTaskExecutorRule()
 
     private val loadingObserver = mock<Observer<Boolean>>()
+    private val paginateLoadingObserver = mock<Observer<Boolean>>()
     private val errorObserver = mock<Observer<Boolean>>()
     private val pokemonObserver = mock<Observer<List<PokemonViewModel>>>()
+    private val paginatePokemonObserver = mock<Observer<List<PokemonViewModel>>>()
     private val mapper = mock<MainMapper>()
     private val subject = PokemonListPresenterImpl(mapper)
     private val pokemon = Pokemon("name", "id", "image")
@@ -24,8 +26,10 @@ internal class PokemonListPresenterImplTest {
     @Before
     fun before() {
         subject.getLoadingObservable().observeForever(loadingObserver)
+        subject.getPaginateLoadingObservable().observeForever(paginateLoadingObserver)
         subject.getErrorObservable().observeForever(errorObserver)
         subject.getPokemonObservable().observeForever(pokemonObserver)
+        subject.getPaginatedPokemonsObservable().observeForever(paginatePokemonObserver)
     }
 
     @Test
@@ -67,5 +71,22 @@ internal class PokemonListPresenterImplTest {
         verify(loadingObserver).onChanged(false)
         verify(errorObserver).onChanged(false)
         verify(pokemonObserver).onChanged(mappedPokemons)
+    }
+
+    @Test
+    fun `when call present paginted pokemons expect post value on observer` () {
+        val mappedPokemons = listOf<PokemonViewModel>()
+        whenever(mapper.mapPokemons(listOf(pokemon))).doReturn(mappedPokemons)
+        subject.presentPaginatedPokemons(listOf(pokemon))
+        verify(paginateLoadingObserver).onChanged(false)
+        verify(errorObserver).onChanged(false)
+        verify(paginatePokemonObserver).onChanged(mappedPokemons)
+    }
+
+    @Test
+    fun `when call presenter paginate loading passing true expect post true to observable`() {
+        subject.presentPaginateLoadingState(true)
+        verify(loadingObserver).onChanged(false)
+        verify(errorObserver).onChanged(false)
     }
 }

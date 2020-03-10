@@ -15,6 +15,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.globo.globosatplay.core.fragment.StatelessFragment
 import com.idv.core.extensions.runOnBackground
 import com.idv.core.extensions.runOnUI
@@ -24,8 +25,10 @@ import com.idv.pokemon_list.view.adapter.PokemonAdapter
 import com.idv.pokemon_list.view.presenter.PokemonViewModel
 import kotlinx.android.synthetic.main.fragment_pokemonlist.*
 
+
 class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener, TextWatcher {
 
+    private lateinit var topHitsAdapter: PokemonAdapter
     private lateinit var searchView: SearchView
     private lateinit var searchViewText: EditText
     private var controller: PokemonListController? = null
@@ -49,10 +52,21 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
             .setLoadingObserver(loadingObserver)
             .setErrorObserver(errorObserver)
             .setPokemonsObserver(pokemonsObserver)
+            .setPaginatedPokemonsObserver(paginatedPokemonsObserver)
+            .setPaginateLoadingObserver(paginateLoadingObserver)
             .build()
         runOnBackground {
             controller?.getFirstPokemons()
         }
+
+        pokemonRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    controller?.getNextPage()
+                }
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -102,14 +116,20 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
         Log.e("RECEBIDO", "RECEBIDO: $message")
     }
 
+    private val paginatedPokemonsObserver =
+        Observer<List<PokemonViewModel>> { pokemons ->
+            runOnUI {
+                topHitsAdapter.addItems(pokemons)
+            }
+        }
+
     private val pokemonsObserver =
         Observer<List<PokemonViewModel>> { pokemons ->
             runOnUI {
-                Log.e("pokemons", pokemons.toString())
-                val topHitsAdapter =
+                topHitsAdapter =
                     PokemonAdapter(
                         requireContext(),
-                        pokemons
+                        pokemons as MutableList<PokemonViewModel>
                     )
                 val mLayoutManager = LinearLayoutManager(requireContext())
                 pokemonRecyclerView?.apply {
@@ -126,6 +146,13 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
             progressBar.visibility = View.VISIBLE
         else
             progressBar.visibility = View.GONE
+    }
+
+    private val paginateLoadingObserver = Observer<Boolean> { showLoading ->
+        if (showLoading)
+            paginateProgressBar.visibility = View.VISIBLE
+        else
+            paginateProgressBar.visibility = View.GONE
     }
 
     private val errorObserver = Observer<Boolean> { hasError ->

@@ -12,13 +12,21 @@ internal interface PokemonListPresenter {
 
     fun presentLoadingState(showLoading : Boolean)
 
+    fun presentPaginateLoadingState(showLoading : Boolean)
+
     fun getErrorObservable(): MutableLiveData<Boolean>
 
     fun getLoadingObservable(): MutableLiveData<Boolean>
 
+    fun getPaginateLoadingObservable(): MutableLiveData<Boolean>
+
     fun getPokemonObservable(): MutableLiveData<List<PokemonViewModel>>
 
+    fun getPaginatedPokemonsObservable(): MutableLiveData<List<PokemonViewModel>>
+
     fun presentPokemons(pokemons: List<Pokemon>)
+
+    fun presentPaginatedPokemons(pokemons: List<Pokemon>)
 
     companion object Factory {
         fun make() : PokemonListPresenter {

@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Pikachu"/>
+        tools:text="Bulbasaur"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/pokemonImage"
@@ -26,6 +26,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        tools:src="@drawable/ic_bulbasaur_foreground"
         />
     
 </androidx.constraintlayout.widget.ConstraintLayout>

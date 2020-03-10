@@ -4,4 +4,5 @@
     <dimen name="pokemonNameTextSize">20sp</dimen>
     <dimen name="pokemonImageMarginEnd">20dp</dimen>
     <dimen name="pokemonNameMarginStart">40dp</dimen>
+    <dimen name="paginte_progress_bar_margin_bottom">40dp</dimen>
 </resources>

@@ -21,7 +21,7 @@ internal class PokemonServiceImpl(factory: ServiceFactory) : PokemonService {
         }
     }
 
-    override suspend fun getPokemons(offset : Int?): PokemonsResponseModel {
+    override suspend fun getPokemons(offset : Int): PokemonsResponseModel {
         try {
             val response = service.getPokemons(offset?: 0).execute()
             return response.body()!!

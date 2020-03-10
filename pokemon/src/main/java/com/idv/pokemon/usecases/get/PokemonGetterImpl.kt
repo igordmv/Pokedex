@@ -20,8 +20,8 @@ internal class PokemonGetterImpl(
         mapper.mapPokemon(service.getPokemon(identifier))
 
     @Throws(IOException::class)
-    override suspend fun getPokemons(): List<Pokemon> {
-        val pokemons = service.getPokemons()
+    override suspend fun getPokemons(offset : Int?): List<Pokemon> {
+        val pokemons = service.getPokemons(offset?: 0)
         val pokemonList = mutableListOf<Pokemon>()
         var count = 0
         pokemons.result?.forEach {
