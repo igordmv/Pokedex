@@ -19,6 +19,7 @@ internal class PokemonListController(
 ) : ViewModel()  {
 
     private var currentOffset : Int = 0
+    var isScrolling : Boolean = false
 
     fun getPokemon(identifier : String) = viewModelScope.launch(Dispatchers.IO) {
         try {
@@ -43,12 +44,15 @@ internal class PokemonListController(
 
     fun getNextPage() = viewModelScope.launch(Dispatchers.IO) {
         try {
+            isScrolling = true
             presenter.presentPaginateLoadingState(true)
             val pokemons = pokemonGetter.getPokemons(currentOffset)
             currentOffset += PER_PAGE
             presenter.presentPaginatedPokemons(pokemons)
         } catch (e : IOException) {
             presenter.presentError()
+        } finally {
+            isScrolling = false
         }
     }
 

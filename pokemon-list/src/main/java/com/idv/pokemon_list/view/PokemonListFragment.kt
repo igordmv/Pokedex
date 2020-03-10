@@ -63,7 +63,9 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1)) {
-                    controller?.getNextPage()
+                    if(controller?.isScrolling == false) {
+                        controller?.getNextPage()
+                    }
                 }
             }
         })
