@@ -16,7 +16,7 @@ internal interface MainPresenter {
 
     fun getLoadingObservable(): MutableLiveData<Boolean>
 
-    fun getPokemonObservable(): MutableLiveData<PokemonsViewModel>
+    fun getPokemonObservable(): MutableLiveData<List<PokemonViewModel>>
 
     fun presentPokemons(pokemons: List<Pokemon>)
 

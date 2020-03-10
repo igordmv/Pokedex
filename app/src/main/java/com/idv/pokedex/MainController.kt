@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.idv.core.service.RetrofitServiceFactory
 import com.idv.pokedex.view.MainActivity
 import com.idv.pokedex.view.presenter.MainPresenter
-import com.idv.pokedex.view.presenter.PokemonsViewModel
+import com.idv.pokedex.view.presenter.PokemonViewModel
 import com.idv.pokemon.usecases.get.PokemonGetter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,7 +42,7 @@ internal class MainController(
         private lateinit var activityRef: WeakReference<MainActivity>
         private lateinit var loadingObserver: Observer<Boolean>
         private lateinit var errorObserver: Observer<Boolean>
-        private lateinit var pokemonsObserver: Observer<PokemonsViewModel>
+        private lateinit var pokemonsObserver: Observer<List<PokemonViewModel>>
 
         fun setActivity(activity: MainActivity) = apply {
             this.activityRef = WeakReference(activity)
@@ -56,7 +56,7 @@ internal class MainController(
             this.loadingObserver = loadingObserver
         }
 
-        fun setPokemonsObserver(pokemonsObserver : Observer<PokemonsViewModel>) = apply {
+        fun setPokemonsObserver(pokemonsObserver : Observer<List<PokemonViewModel>>) = apply {
             this.pokemonsObserver = pokemonsObserver
         }
 

@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.util.TypedValue
 import android.view.Menu
 import android.view.View
@@ -15,17 +16,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.idv.core.extensions.runOnBackground
+import com.idv.core.extensions.runOnUI
 import com.idv.pokedex.MainController
 import com.idv.pokedex.R
-import com.idv.pokedex.view.presenter.PokemonsViewModel
+import com.idv.pokedex.view.adapter.PokemonAdapter
+import com.idv.pokedex.view.presenter.PokemonViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, TextWatcher {
 
     private lateinit var searchView: SearchView
     private lateinit var searchViewText: EditText
-    private var controller : MainController? = null
+    private var controller: MainController? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +42,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, TextWa
             .setErrorObserver(errorObserver)
             .setPokemonsObserver(pokemonsObserver)
             .build()
-
         runOnBackground {
             controller?.getFirstPokemons()
         }
@@ -60,12 +63,12 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, TextWa
         searchViewText = searchView.findViewById(androidx.appcompat.R.id.search_src_text)
         searchViewText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
 
-            searchViewText.setHintTextColor(
-                ContextCompat.getColor(
-                    this,
-                    R.color.toolbar_text_color
-                )
+        searchViewText.setHintTextColor(
+            ContextCompat.getColor(
+                this,
+                R.color.toolbar_text_color
             )
+        )
         searchViewText.addTextChangedListener(this)
     }
 
@@ -95,11 +98,22 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener, TextWa
     }
 
     private val pokemonsObserver =
-        Observer<PokemonsViewModel> { pokemonsObserver ->
+        Observer<List<PokemonViewModel>> { pokemons ->
+            runOnUI {
+                Log.e("pokemons", pokemons.toString())
+                val topHitsAdapter = PokemonAdapter(this, pokemons)
+                val mLayoutManager = LinearLayoutManager(this)
+                pokemonRecyclerView?.apply {
+                    setHasFixedSize(true)
+                    layoutManager = mLayoutManager
+                    adapter = topHitsAdapter
+                    visibility = View.VISIBLE
+                }
+            }
         }
 
     private val loadingObserver = Observer<Boolean> { showLoading ->
-        if(showLoading)
+        if (showLoading)
             progressBar.visibility = View.VISIBLE
         else
             progressBar.visibility = View.GONE
