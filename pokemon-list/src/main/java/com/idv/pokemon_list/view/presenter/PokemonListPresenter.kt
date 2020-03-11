@@ -1,7 +1,7 @@
 package com.idv.pokemon_list.view.presenter
 
 import androidx.lifecycle.MutableLiveData
-import com.idv.pokemon_list.view.mapper.MainMapper
+import com.idv.pokemon_list.view.mapper.PokemonListMapper
 import com.idv.pokemon_entity.Pokemon
 
 internal interface PokemonListPresenter {
@@ -32,7 +32,7 @@ internal interface PokemonListPresenter {
 
     companion object Factory {
         fun make() : PokemonListPresenter {
-            val mapper = MainMapper.make()
+            val mapper = PokemonListMapper.make()
             return PokemonListPresenterImpl(mapper)
         }
     }

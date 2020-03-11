@@ -9,6 +9,7 @@ import com.globo.globosatplay.core.fragment.StatelessFragment
 import com.idv.core.extensions.runOnBackground
 import com.idv.pokedex.MainController
 import com.idv.pokedex.R
+import com.idv.pokedex.injector.pokemonlist.PokemonListFragmentApp
 import com.idv.pokemon_list.view.PokemonListFragment
 
 class MainActivity : AppCompatActivity() {
@@ -32,10 +33,10 @@ class MainActivity : AppCompatActivity() {
 
     private val showPokemonListObservable = Observer<Boolean> { showPokemonList ->
         if (showPokemonList) {
-            if (currentFragment !is PokemonListFragment) {
+            if (currentFragment !is PokemonListFragmentApp) {
                 lastFragment = currentFragment
                 currentFragment?.saveState(supportFragmentManager)
-                currentFragment = PokemonListFragment()
+                currentFragment = PokemonListFragmentApp()
                 replaceFragmentToLastState(currentFragment, POKEMON_LIST_FRAGMENT_TAG)
             }
         }

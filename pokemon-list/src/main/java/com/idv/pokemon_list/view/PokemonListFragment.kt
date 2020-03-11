@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.globo.globosatplay.core.ImageConverter
 import com.globo.globosatplay.core.fragment.StatelessFragment
+import com.idv.core.contrats.PokemonListNavigator
 import com.idv.core.extensions.runOnBackground
 import com.idv.core.extensions.runOnUI
 import com.idv.pokemon_list.PokemonListController
@@ -31,7 +32,9 @@ import kotlinx.android.synthetic.main.fragment_pokemonlist.*
 import java.util.*
 
 
-class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener, TextWatcher {
+abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener, TextWatcher {
+
+    abstract val navigator : PokemonListNavigator
 
     private lateinit var topHitsAdapter: PokemonAdapter
     private lateinit var searchView: SearchView
@@ -157,6 +160,10 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
         }
     }
 
+    fun onRecycleViewItemClicked(identifier: String) = runOnUI {
+        navigator.navigatePokemonDetails(identifier)
+    }
+
     private val paginatedPokemonsObserver =
         Observer<List<PokemonViewModel>> { pokemons ->
             runOnUI {
@@ -210,7 +217,7 @@ class PokemonListFragment : StatelessFragment(), SearchView.OnQueryTextListener,
             runOnUI {
                 topHitsAdapter =
                     PokemonAdapter(
-                        requireContext(),
+                        this,
                         pokemons as MutableList<PokemonViewModel>
                     )
                 val mLayoutManager = LinearLayoutManager(requireContext())

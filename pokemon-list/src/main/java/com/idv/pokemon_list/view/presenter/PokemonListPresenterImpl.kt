@@ -1,10 +1,10 @@
 package com.idv.pokemon_list.view.presenter
 
 import androidx.lifecycle.MutableLiveData
-import com.idv.pokemon_list.view.mapper.MainMapper
+import com.idv.pokemon_list.view.mapper.PokemonListMapper
 import com.idv.pokemon_entity.Pokemon
 
-internal class PokemonListPresenterImpl(private val mapper : MainMapper) : PokemonListPresenter {
+internal class PokemonListPresenterImpl(private val mapper : PokemonListMapper) : PokemonListPresenter {
     private val loadingObserver = MutableLiveData<Boolean>()
     private val paginateLoadingObserver = MutableLiveData<Boolean>()
     private val errorObserver = MutableLiveData<Boolean>()

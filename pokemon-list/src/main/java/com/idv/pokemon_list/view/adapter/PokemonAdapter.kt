@@ -8,18 +8,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.globo.globosatplay.core.ImageConverter
 import com.idv.pokemon_list.R
+import com.idv.pokemon_list.view.PokemonListFragment
 import com.idv.pokemon_list.view.presenter.PokemonViewModel
 import kotlinx.android.synthetic.main.view_holder_pokemon.view.*
 import java.lang.ref.WeakReference
 
 
-internal class PokemonAdapter(private val context : Context, private val pokemons : MutableList<PokemonViewModel>) : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
+internal class PokemonAdapter(private val fragment : PokemonListFragment, private val pokemons : MutableList<PokemonViewModel>) : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder {
-        val view = LayoutInflater.from(context)
+        val view = LayoutInflater.from(fragment.requireContext())
             .inflate(R.layout.view_holder_pokemon, parent, false)
         return PokemonViewHolder(
             view,
-            WeakReference(context)
+            WeakReference(fragment)
         )
     }
 
@@ -38,7 +39,7 @@ internal class PokemonAdapter(private val context : Context, private val pokemon
         }
     }
 
-    class PokemonViewHolder(itemView: View, private val activityRef: WeakReference<Context>) : androidx.recyclerview.widget.RecyclerView.ViewHolder(itemView),
+    class PokemonViewHolder(itemView: View, private val activityRef: WeakReference<PokemonListFragment>) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
         private var view: View = itemView
@@ -49,7 +50,10 @@ internal class PokemonAdapter(private val context : Context, private val pokemon
         }
 
         override fun onClick(v: View) {
-            Log.d("RecyclerView", "CLICK!")
+            activityRef.get()?.let { fragment ->
+                val clicked = itemView.pokemonName
+                fragment.onRecycleViewItemClicked(clicked.text.toString())
+            }
         }
 
         fun bindView(result: PokemonViewModel){
@@ -57,9 +61,9 @@ internal class PokemonAdapter(private val context : Context, private val pokemon
             val imageView = itemView.pokemonImage
             text.text = result.name.capitalize()
 
-            activityRef.get()?.let { context ->
+            activityRef.get()?.let { fragment ->
                 ImageConverter.load(
-                    context,
+                    fragment.requireContext(),
                     result.image,
                     imageView,
                     POKEMON_WIDTH,

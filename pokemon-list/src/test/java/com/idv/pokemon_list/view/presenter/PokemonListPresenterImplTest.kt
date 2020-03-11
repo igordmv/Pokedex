@@ -3,7 +3,7 @@ package com.idv.pokemon_list.view.presenter
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.idv.pokemon_entity.Pokemon
-import com.idv.pokemon_list.view.mapper.MainMapper
+import com.idv.pokemon_list.view.mapper.PokemonListMapper
 import com.nhaarman.mockitokotlin2.*
 import org.junit.Before
 import org.junit.Rule
@@ -19,7 +19,7 @@ internal class PokemonListPresenterImplTest {
     private val errorObserver = mock<Observer<Boolean>>()
     private val pokemonObserver = mock<Observer<List<PokemonViewModel>>>()
     private val paginatePokemonObserver = mock<Observer<List<PokemonViewModel>>>()
-    private val mapper = mock<MainMapper>()
+    private val mapper = mock<PokemonListMapper>()
     private val subject = PokemonListPresenterImpl(mapper)
     private val pokemon = Pokemon("name", "id", "image")
 
