@@ -29,6 +29,7 @@ android {
     }
 
     lintOptions {
+        disable 'MissingDefaultResource'
         abortOnError false
     }
 }
@@ -39,10 +40,21 @@ dependencies {
     implementation project(path: ':core')
     implementation project(path: ':pokemon')
 
-    implementation kotlin_coroutines
-    implementation kotlin
-    implementation app_compat
     implementation constraint_layout
+
+    implementation app_compat
+    implementation kotlin
+    implementation retrofit
+    implementation retrofit_converter
+    implementation kotlin_coroutines
+    implementation android_coroutines
+    implementation glide
+    implementation design
+
+    implementation recyclerview
+
+    implementation lifecycle_ext
+    implementation lifecycle_viewmodel_ktx
 
     testImplementation junit
     testImplementation kotlin_coroutines_test

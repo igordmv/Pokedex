@@ -7,6 +7,8 @@ import com.idv.pokemon_entity.Pokemon
 internal interface PokemonServiceMapper {
     fun mapPokemon(body : PokemonResponseModel) : Pokemon
 
+    fun mapPokemons(pokemons: PokemonsResponseModel): List<Pokemon>
+
     companion object Factory {
         fun make() : PokemonServiceMapper {
             return PokemonServiceMapperImpl()

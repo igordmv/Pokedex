@@ -27,6 +27,7 @@ internal class PokemonListPresenterImpl(private val mapper : PokemonListMapper) 
 
     override fun presentError() {
         loadingObserver.postValue(false)
+        paginateLoadingObserver.postValue(false)
         errorObserver.postValue(true)
      }
 

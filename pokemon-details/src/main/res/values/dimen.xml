@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="pokemonNameTextSize">20sp</dimen>
+    <dimen name="pokemonNameTextSize">35sp</dimen>
     <dimen name="pokemonNameMarginStart">40dp</dimen>
 </resources>

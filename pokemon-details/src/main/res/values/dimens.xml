@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="pokemonNameMarginTop">20dp</dimen>
+    <dimen name="pokemonImageMarginEnd">20dp</dimen>
+    <dimen name="pokemonImageMarginTop">20dp</dimen>
 </resources>

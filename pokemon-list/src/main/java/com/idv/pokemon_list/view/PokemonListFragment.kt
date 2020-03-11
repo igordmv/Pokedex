@@ -180,7 +180,6 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
                     searchEmptyState?.visibility = View.GONE
                     pokemonName.visibility = View.VISIBLE
                     pokemonImage.visibility = View.VISIBLE
-                    pokemonName.text = pokemon.name.capitalize()
                     ImageConverter.load(
                         requireContext(),
                         pokemon.image,
@@ -188,6 +187,8 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
                         PokemonAdapter.PokemonViewHolder.POKEMON_WIDTH,
                         PokemonAdapter.PokemonViewHolder.POKEMON_HEIGHT
                     )
+                    pokemonName.text = pokemon.name.capitalize()
+
                 }?:run {
                     query?.let { query ->
                         pokemonRecyclerView.visibility = View.GONE

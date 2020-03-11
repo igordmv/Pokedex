@@ -30,6 +30,8 @@ android {
     }
 
     lintOptions {
+        disable 'MissingDefaultResource'
+        disable 'MissingTranslation'
         abortOnError false
     }
 }
