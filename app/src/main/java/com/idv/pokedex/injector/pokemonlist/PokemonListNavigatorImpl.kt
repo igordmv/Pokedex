@@ -7,10 +7,10 @@ import com.idv.pokemon_details.view.PokemonDetailsActivity
 import java.lang.ref.WeakReference
 
 internal class PokemonListNavigatorImpl(private val activityRef: WeakReference<MainActivity>) : PokemonListNavigator {
-    override fun navigatePokemonDetails(identifier: String) {
+    override fun navigatePokemonDetails(pokemonName: String) {
         activityRef.get()?.let {
             val intent = Intent(it, PokemonDetailsActivity::class.java)
-            intent.putExtra(PokemonDetailsActivity.POKEMON_IDENTIFIER_ID, identifier)
+            intent.putExtra(PokemonDetailsActivity.POKEMON_IDENTIFIER_ID, pokemonName)
             it.startActivity(intent)
         }
     }

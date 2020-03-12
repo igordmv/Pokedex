@@ -4,6 +4,7 @@ import com.idv.core.service.ServiceFactory
 import com.idv.pokemon.service.PokemonServiceImpl
 import com.idv.pokemon.service.mapper.PokemonServiceMapper
 import com.idv.pokemon_entity.Pokemon
+import com.idv.pokemon_entity.PokemonDetails
 import com.idv.pokemon_entity.PokemonEvolutionChain
 import java.io.IOException
 
@@ -11,6 +12,9 @@ interface PokemonGetter {
 
     @Throws(IOException::class)
     suspend fun getPokemon(identifier : String) : Pokemon
+
+    @Throws(IOException::class)
+    suspend fun getPokemonDetails(identifier : String) : PokemonDetails
 
     @Throws(IOException::class)
     suspend fun getPokemons(offset : Int? = 0) : List<Pokemon>
