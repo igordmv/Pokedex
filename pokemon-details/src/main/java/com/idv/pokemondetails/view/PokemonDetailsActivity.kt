@@ -7,17 +7,19 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.globo.globosatplay.core.ImageConverter
-import com.idv.core.extensions.runOnBackground
 import com.idv.core.extensions.runOnUI
 import com.idv.pokemondetails.PokemonDetailsController
 import com.idv.pokemondetails.R
+import com.idv.pokemondetails.view.adapter.PokemonDetailsAdapter
 import kotlinx.android.synthetic.main.activity_pokemon_details.*
-
 
 class PokemonDetailsActivity : AppCompatActivity() {
 
     private var controller: PokemonDetailsController? = null
+    private lateinit var pokemonImages: PokemonDetailsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +70,21 @@ class PokemonDetailsActivity : AppCompatActivity() {
                         POKEMON_HEIGHT
                     )
                 }
+                pokemonDetails.images?.let {
+                    pokemonImages =
+                        PokemonDetailsAdapter(
+                            this,
+                            it as MutableList<String>
+                        )
+                    val mLayoutManager = LinearLayoutManager(this)
+                    mLayoutManager.orientation = RecyclerView.HORIZONTAL
+                    pokemonImageRecyclerView?.apply {
+                        layoutManager = mLayoutManager
+                        adapter = pokemonImages
+                        visibility = View.VISIBLE
+                    }
+                }
+
                 pokemonDetails.hitPoints?.let { hp ->
                     pokemonHp.text = getString(R.string.hp, hp)
                 }
@@ -93,21 +110,21 @@ class PokemonDetailsActivity : AppCompatActivity() {
                     pokemonWeight.text = getString(R.string.weight, it)
                 }
                 pokemonDetails.types?.let { types ->
-                    if(types.isNotEmpty()){
+                    if (types.isNotEmpty()) {
                         pokemonTypeButtonOne.text = types[0]
                         pokemonTypeButtonOne.visibility = View.VISIBLE
                         pokemonTypeButtonOne.setOnClickListener {
                             Log.e("clicked", types[0])
                         }
                     }
-                    if(types.size >= 2){
+                    if (types.size >= 2) {
                         pokemonTypeButtonTwo.text = types[1]
                         pokemonTypeButtonTwo.visibility = View.VISIBLE
                         pokemonTypeButtonTwo.setOnClickListener {
                             Log.e("clicked", types[1])
                         }
                     }
-                    if(types.size >= 3){
+                    if (types.size >= 3) {
                         pokemonTypeButtonTree.text = types[2]
                         pokemonTypeButtonTree.visibility = View.VISIBLE
                         pokemonTypeButtonTree.setOnClickListener {
@@ -116,21 +133,21 @@ class PokemonDetailsActivity : AppCompatActivity() {
                     }
                 }
                 pokemonDetails.abilities?.let { abilities ->
-                    if(abilities.isNotEmpty()){
+                    if (abilities.isNotEmpty()) {
                         pokemonAbilityButtonOne.text = abilities[0]
                         pokemonAbilityButtonOne.visibility = View.VISIBLE
                         pokemonAbilityButtonOne.setOnClickListener {
                             Log.e("clicked", abilities[0])
                         }
                     }
-                    if(abilities.size >= 2){
+                    if (abilities.size >= 2) {
                         pokemonAbilityButtonTwo.text = abilities[1]
                         pokemonAbilityButtonTwo.visibility = View.VISIBLE
                         pokemonAbilityButtonTwo.setOnClickListener {
                             Log.e("clicked", abilities[1])
                         }
                     }
-                    if(abilities.size >= 3){
+                    if (abilities.size >= 3) {
                         pokemonAbilityButtonTree.text = abilities[2]
                         pokemonAbilityButtonTree.visibility = View.VISIBLE
                         pokemonAbilityButtonTree.setOnClickListener {

@@ -34,7 +34,6 @@
         app:layout_constraintTop_toBottomOf="@id/searchAppBar"
         tools:src="@drawable/ic_bulbasaur_foreground" />
 
-
     <androidx.cardview.widget.CardView
         android:id="@+id/pokemonDetailsCardView"
         android:layout_width="match_parent"
@@ -310,7 +309,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/pokemonHp"
                 tools:itemCount="3"
-                tools:listitem="@layout/view_holder_pokemon"
+                tools:listitem="@layout/view_holder_pokemon_list_horizontal"
                 tools:orientation="horizontal" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

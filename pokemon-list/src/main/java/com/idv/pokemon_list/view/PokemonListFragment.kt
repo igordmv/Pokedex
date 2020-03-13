@@ -36,7 +36,7 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
 
     abstract val navigator : PokemonListNavigator
 
-    private lateinit var topHitsAdapter: PokemonAdapter
+    private lateinit var pokemonsAdapter: PokemonAdapter
     private lateinit var searchView: SearchView
     private lateinit var searchViewText: EditText
     private var query : String? = null
@@ -167,7 +167,7 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
     private val paginatedPokemonsObserver =
         Observer<List<PokemonViewModel>> { pokemons ->
             runOnUI {
-                topHitsAdapter.addItems(pokemons)
+                pokemonsAdapter.addItems(pokemons)
             }
         }
 
@@ -216,7 +216,7 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
     private val pokemonsObserver =
         Observer<List<PokemonViewModel>> { pokemons ->
             runOnUI {
-                topHitsAdapter =
+                pokemonsAdapter =
                     PokemonAdapter(
                         this,
                         pokemons as MutableList<PokemonViewModel>
@@ -225,7 +225,7 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
                 pokemonRecyclerView?.apply {
                     setHasFixedSize(true)
                     layoutManager = mLayoutManager
-                    adapter = topHitsAdapter
+                    adapter = pokemonsAdapter
                     visibility = View.VISIBLE
                 }
             }

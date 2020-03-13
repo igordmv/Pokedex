@@ -5,15 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/pokemonImage"
+        android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         tools:src="@drawable/ic_bulbasaur_foreground"
         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
