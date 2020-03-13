@@ -59,4 +59,5 @@ dependencies {
     testImplementation junit
     testImplementation kotlin_coroutines_test
     testImplementation mockito_kotlin
+    testImplementation arch_core
 }

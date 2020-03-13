@@ -1,4 +1,4 @@
-package com.idv.pokemon_details
+package com.idv.pokemondetails
 
 import org.junit.Test
 

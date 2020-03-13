@@ -38,4 +38,8 @@ dependencies {
     implementation android_coroutines
     implementation glide
     implementation design
+
+    testImplementation junit
+    testImplementation mockito_kotlin
+    testImplementation arch_core
 }

@@ -15,9 +15,10 @@ internal class PokemonListPresenterImplTest {
     var rule = InstantTaskExecutorRule()
 
     private val loadingObserver = mock<Observer<Boolean>>()
-    private val paginateLoadingObserver = mock<Observer<Boolean>>()
     private val errorObserver = mock<Observer<Boolean>>()
-    private val pokemonObserver = mock<Observer<List<PokemonViewModel>>>()
+    private val paginateLoadingObserver = mock<Observer<Boolean>>()
+    private val pokemonsObserver = mock<Observer<List<PokemonViewModel>>>()
+    private val pokemonObserver = mock<Observer<PokemonViewModel>>()
     private val paginatePokemonObserver = mock<Observer<List<PokemonViewModel>>>()
     private val mapper = mock<PokemonListMapper>()
     private val subject = PokemonListPresenterImpl(mapper)
@@ -28,6 +29,7 @@ internal class PokemonListPresenterImplTest {
         subject.getLoadingObservable().observeForever(loadingObserver)
         subject.getPaginateLoadingObservable().observeForever(paginateLoadingObserver)
         subject.getErrorObservable().observeForever(errorObserver)
+        subject.getPokemonsObservable().observeForever(pokemonsObserver)
         subject.getPokemonObservable().observeForever(pokemonObserver)
         subject.getPaginatedPokemonsObservable().observeForever(paginatePokemonObserver)
     }
@@ -60,7 +62,7 @@ internal class PokemonListPresenterImplTest {
         subject.presentPokemon(pokemon)
         verify(loadingObserver).onChanged(false)
         verify(errorObserver).onChanged(false)
-        verify(pokemonObserver).onChanged(listOf(mappedPokemon))
+        verify(pokemonObserver).onChanged(mappedPokemon)
     }
 
     @Test
@@ -70,7 +72,7 @@ internal class PokemonListPresenterImplTest {
         subject.presentPokemons(listOf(pokemon))
         verify(loadingObserver).onChanged(false)
         verify(errorObserver).onChanged(false)
-        verify(pokemonObserver).onChanged(mappedPokemons)
+        verify(pokemonsObserver).onChanged(mappedPokemons)
     }
 
     @Test

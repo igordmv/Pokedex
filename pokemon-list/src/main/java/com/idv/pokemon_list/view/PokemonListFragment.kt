@@ -238,17 +238,17 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
             progressBar.visibility = View.GONE
     }
 
+    private val errorObserver = Observer<Boolean> { hasError ->
+        if (hasError) {
+            Toast.makeText(requireContext(), TOAST_FAIL_REQUEST, Toast.LENGTH_LONG).show()
+        }
+    }
+
     private val paginateLoadingObserver = Observer<Boolean> { showLoading ->
         if (showLoading)
             paginateProgressBar.visibility = View.VISIBLE
         else
             paginateProgressBar.visibility = View.GONE
-    }
-
-    private val errorObserver = Observer<Boolean> { hasError ->
-        if (hasError) {
-            Toast.makeText(requireContext(), TOAST_FAIL_REQUEST, Toast.LENGTH_LONG).show()
-        }
     }
 
     companion object {

@@ -37,12 +37,15 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/pokemonDetailsCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:cardCornerRadius="8dp"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:cardBackgroundColor="@android:color/white"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/searchAppBar"
@@ -85,6 +88,18 @@
 
 
     </androidx.cardview.widget.CardView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:visibility="visible"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

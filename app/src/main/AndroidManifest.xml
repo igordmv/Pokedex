@@ -34,7 +34,7 @@
         </activity>
 
         <activity
-            android:name="com.idv.pokemon_details.view.PokemonDetailsActivity"
+            android:name="com.idv.pokemondetails.view.PokemonDetailsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/pokemon_detail"
             android:parentActivityName=".view.MainActivity" />

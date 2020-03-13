@@ -67,8 +67,8 @@ internal class PokemonListController(
         private lateinit var paginatedPokemonsObserver: Observer<List<PokemonViewModel>>
         private lateinit var fragmentRef: WeakReference<PokemonListFragment>
         private lateinit var loadingObserver: Observer<Boolean>
-        private lateinit var paginateLoadingObserver: Observer<Boolean>
         private lateinit var errorObserver: Observer<Boolean>
+        private lateinit var paginateLoadingObserver: Observer<Boolean>
         private lateinit var pokemonsObserver: Observer<List<PokemonViewModel>>
         private lateinit var pokemonObserver: Observer<PokemonViewModel>
 
@@ -80,12 +80,12 @@ internal class PokemonListController(
             this.errorObserver = errorObserver
         }
 
-        fun setPaginateLoadingObserver(loadingObserver: Observer<Boolean>) = apply {
-            this.paginateLoadingObserver = loadingObserver
-        }
-
         fun setLoadingObserver(loadingObserver: Observer<Boolean>) = apply {
             this.loadingObserver = loadingObserver
+        }
+
+        fun setPaginateLoadingObserver(loadingObserver: Observer<Boolean>) = apply {
+            this.paginateLoadingObserver = loadingObserver
         }
 
         fun setPokemonsObserver(pokemonsObserver : Observer<List<PokemonViewModel>>) = apply {
