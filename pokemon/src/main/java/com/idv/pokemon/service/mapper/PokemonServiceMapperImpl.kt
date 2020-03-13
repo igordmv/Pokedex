@@ -7,6 +7,7 @@ import com.idv.pokemon.service.retrofitmodel.ResultResponseModel
 import com.idv.pokemon.service.retrofitmodel.SpritesResponseModel
 import com.idv.pokemon.service.retrofitmodel.TypesResponseModel
 import com.idv.pokemon_entity.Pokemon
+import com.idv.pokemon_entity.PokemonAbility
 import com.idv.pokemon_entity.PokemonDetails
 
 internal class PokemonServiceMapperImpl : PokemonServiceMapper {
@@ -40,6 +41,10 @@ internal class PokemonServiceMapperImpl : PokemonServiceMapper {
             getHitpoints(pokemonDetails.stats),
             getAbilities(pokemonDetails.abilities)
         )
+    }
+
+    override fun mapAbilities(abilityName: String, abilityDetails: PokemonEffectEntriesResponseModel): PokemonAbility {
+        return PokemonAbility(abilityName, abilityDetails?.effectEntries?.first()?.effect, abilityDetails?.effectEntries?.first()?.shortEffect)
     }
 
     private fun getAbilities(abilities: List<AbilitiesResponseModel>?): List<String>? {

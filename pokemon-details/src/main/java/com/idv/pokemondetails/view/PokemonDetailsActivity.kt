@@ -41,6 +41,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
             .setErrorObserver(errorObserver)
             .setLoadingObserver(loadingObserver)
             .setPokemonDetailsObserver(pokemonDetailsObserver)
+            .setAbilityDetailsObserver(pokemonAbilityObserver)
             .build()
 
         identifier?.let {
@@ -57,6 +58,19 @@ class PokemonDetailsActivity : AppCompatActivity() {
                 finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private val pokemonAbilityObserver = Observer<PokemonAbilityDetailsViewModel> { ability ->
+        runOnUI {
+            val dialogBuilder = AlertDialog.Builder(this)
+            val dialogView = layoutInflater.inflate(R.layout.dialog_ability, null)
+            dialogBuilder.setView(dialogView)
+            val dialog = dialogBuilder.create()
+            dialog.show()
+            dialogView.abilityTitle.text = ability.title.capitalize()
+            dialogView.abilityEffect.text = ability.effect
+            dialogView.abilityShortEffect.text = ability.shortEffect
+        }
     }
 
     private val pokemonDetailsObserver = Observer<PokemonDetailsViewModel> { pokemonDetails ->
@@ -139,21 +153,21 @@ class PokemonDetailsActivity : AppCompatActivity() {
                         pokemonAbilityButtonOne.text = abilities[0]
                         pokemonAbilityButtonOne.visibility = View.VISIBLE
                         pokemonAbilityButtonOne.setOnClickListener {
-                            createAbilityDialog(abilities[0])
+                            controller?.getAbilityDetails(abilities[0].toLowerCase())
                         }
                     }
                     if (abilities.size >= 2) {
                         pokemonAbilityButtonTwo.text = abilities[1]
                         pokemonAbilityButtonTwo.visibility = View.VISIBLE
                         pokemonAbilityButtonTwo.setOnClickListener {
-                            createAbilityDialog(abilities[1])
+                            controller?.getAbilityDetails(abilities[1].toLowerCase())
                         }
                     }
                     if (abilities.size >= 3) {
                         pokemonAbilityButtonTree.text = abilities[2]
                         pokemonAbilityButtonTree.visibility = View.VISIBLE
                         pokemonAbilityButtonTree.setOnClickListener {
-                            createAbilityDialog(abilities[2])
+                            controller?.getAbilityDetails(abilities[2].toLowerCase())
                         }
                     }
                 }
@@ -164,12 +178,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
     }
 
     private fun createAbilityDialog(ability: String) = runOnUI {
-        val dialogBuilder = AlertDialog.Builder(this)
-        val dialogView = layoutInflater.inflate(R.layout.dialog_ability, null)
-        dialogBuilder.setView(dialogView)
-        val dialog = dialogBuilder.create()
-        dialog.show()
-        dialogView.abilityTitle.text = ability
+
     }
 
     private val loadingObserver = Observer<Boolean> { showLoading ->

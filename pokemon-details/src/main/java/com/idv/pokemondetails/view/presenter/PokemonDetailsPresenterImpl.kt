@@ -1,7 +1,9 @@
 package com.idv.pokemondetails.view.presenter
 
 import androidx.lifecycle.MutableLiveData
+import com.idv.pokemon_entity.PokemonAbility
 import com.idv.pokemon_entity.PokemonDetails
+import com.idv.pokemondetails.view.PokemonAbilityDetailsViewModel
 import com.idv.pokemondetails.view.PokemonDetailsViewModel
 import com.idv.pokemondetails.view.mapper.PokemonDetailsMapper
 
@@ -10,12 +12,19 @@ internal class PokemonDetailsPresenterImpl(private val mapper: PokemonDetailsMap
     private val loadingObserver = MutableLiveData<Boolean>()
     private val errorObserver = MutableLiveData<Boolean>()
     private val pokemonDetailsObserver = MutableLiveData<PokemonDetailsViewModel>()
+    private val abilityDetailsObserver = MutableLiveData<PokemonAbilityDetailsViewModel>()
 
     override fun presentPokemonDetails(pokemonDetails: PokemonDetails) {
         val mappedDetails = mapper.mapPokemonDetails(pokemonDetails)
         pokemonDetailsObserver.postValue(mappedDetails)
         loadingObserver.postValue(false)
         errorObserver.postValue(false)
+    }
+
+    override fun presentAbilityDetails(abilityDetails: PokemonAbility) {
+        val mappedAbilities = mapper.mapAbilities(abilityDetails)
+        abilityDetailsObserver.postValue(mappedAbilities)
+        loadingObserver.postValue(false)
     }
 
     override fun presentError() {
@@ -31,5 +40,6 @@ internal class PokemonDetailsPresenterImpl(private val mapper: PokemonDetailsMap
     override fun getErrorObservable(): MutableLiveData<Boolean> = errorObserver
     override fun getLoadingObservable(): MutableLiveData<Boolean> = loadingObserver
     override fun getPokemonDetailsObservable(): MutableLiveData<PokemonDetailsViewModel> = pokemonDetailsObserver
+    override fun getAbilityDetailsObservable(): MutableLiveData<PokemonAbilityDetailsViewModel> = abilityDetailsObserver
 
 }

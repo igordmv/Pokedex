@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.idv.core.service.RetrofitServiceFactory
 import com.idv.pokemon.usecases.get.PokemonGetter
+import com.idv.pokemondetails.view.PokemonAbilityDetailsViewModel
 import com.idv.pokemondetails.view.PokemonDetailsActivity
 import com.idv.pokemondetails.view.PokemonDetailsViewModel
 import com.idv.pokemondetails.view.presenter.PokemonDetailsPresenter
@@ -28,12 +29,23 @@ internal class PokemonDetailsController(
         }
     }
 
+    fun getAbilityDetails(ability : String) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            presenter.presentLoadingState(true)
+            val abilityDetails = pokemonGetter.getAbilityDetails(ability.toLowerCase())
+            presenter.presentAbilityDetails(abilityDetails)
+        } catch (e: IOException) {
+            presenter.presentError()
+        }
+    }
+
     class Builder() {
 
         private lateinit var activityRef: WeakReference<PokemonDetailsActivity>
         private lateinit var loadingObserver: Observer<Boolean>
         private lateinit var errorObserver: Observer<Boolean>
         private lateinit var pokemonDetailsObserver: Observer<PokemonDetailsViewModel>
+        private lateinit var abilityDetailsObserver: Observer<PokemonAbilityDetailsViewModel>
 
         fun setActivity(activity: PokemonDetailsActivity) = apply {
             this.activityRef = WeakReference(activity)
@@ -51,6 +63,10 @@ internal class PokemonDetailsController(
             this.pokemonDetailsObserver = pokemonDetailsObserver
         }
 
+        fun setAbilityDetailsObserver(abilityDetailsObserver: Observer<PokemonAbilityDetailsViewModel>) = apply {
+            this.abilityDetailsObserver = abilityDetailsObserver
+        }
+
         fun build(): PokemonDetailsController? {
             var activity = activityRef.get()
             activity?.let { _ ->
@@ -58,6 +74,7 @@ internal class PokemonDetailsController(
                 presenter.getErrorObservable().observe(activity, errorObserver)
                 presenter.getLoadingObservable().observe(activity, loadingObserver)
                 presenter.getPokemonDetailsObservable().observe(activity, pokemonDetailsObserver)
+                presenter.getAbilityDetailsObservable().observe(activity, abilityDetailsObserver)
 
                 val pokemonGetter =
                     PokemonGetter.Builder().setRetrofitFactory(RetrofitServiceFactory).build()

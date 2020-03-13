@@ -11,4 +11,5 @@
     <dimen name="pokemonAbilityTextMarginTop">30dp</dimen>
     <dimen name="statsMarginLeft">20dp</dimen>
     <dimen name="pokemonSpeedMarginTop">30dp</dimen>
+    <dimen name="abilityShortEffectMarginTop">40dp</dimen>
 </resources>

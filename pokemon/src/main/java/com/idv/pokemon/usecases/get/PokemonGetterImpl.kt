@@ -3,6 +3,7 @@ package com.idv.pokemon.usecases.get
 import com.idv.pokemon.service.PokemonService
 import com.idv.pokemon.service.mapper.PokemonServiceMapper
 import com.idv.pokemon_entity.Pokemon
+import com.idv.pokemon_entity.PokemonAbility
 import com.idv.pokemon_entity.PokemonDetails
 import com.idv.pokemon_entity.PokemonEvolutionChain
 import java.io.IOException
@@ -31,4 +32,10 @@ internal class PokemonGetterImpl(
     @Throws(IOException::class)
     override suspend fun getPokemonEvolutionChain(identifier: String): PokemonEvolutionChain =
         PokemonEvolutionChain("", emptyList())
+
+    @Throws(IOException::class)
+    override suspend fun getAbilityDetails(abilityName: String): PokemonAbility {
+        val abilityDetails = service.getAbilityDetails(abilityName)
+        return  mapper.mapAbilities(abilityName, abilityDetails)
+    }
 }

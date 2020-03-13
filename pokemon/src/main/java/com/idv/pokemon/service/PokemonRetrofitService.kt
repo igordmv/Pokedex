@@ -21,6 +21,9 @@ internal interface PokemonRetrofitService {
     fun getPokemons(@Query ("offset") offset: Int, @Query("limit") limit : Int = 20): Call<PokemonsResponseModel>
 
     @GET()
+    fun getAbilityDetails(@Url url: String): Call<PokemonEffectEntriesResponseModel>
+
+    @GET()
     fun getPokemonDetails(@Url url: String): Call<PokemonDetailsRespondeModel>
 
     @GET()
