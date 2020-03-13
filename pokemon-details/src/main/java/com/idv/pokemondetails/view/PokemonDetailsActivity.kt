@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.idv.pokemondetails.PokemonDetailsController
 import com.idv.pokemondetails.R
 import com.idv.pokemondetails.view.adapter.PokemonDetailsAdapter
 import kotlinx.android.synthetic.main.activity_pokemon_details.*
+import kotlinx.android.synthetic.main.dialog_ability.view.*
 
 class PokemonDetailsActivity : AppCompatActivity() {
 
@@ -137,21 +139,21 @@ class PokemonDetailsActivity : AppCompatActivity() {
                         pokemonAbilityButtonOne.text = abilities[0]
                         pokemonAbilityButtonOne.visibility = View.VISIBLE
                         pokemonAbilityButtonOne.setOnClickListener {
-                            Log.e("clicked", abilities[0])
+                            createAbilityDialog(abilities[0])
                         }
                     }
                     if (abilities.size >= 2) {
                         pokemonAbilityButtonTwo.text = abilities[1]
                         pokemonAbilityButtonTwo.visibility = View.VISIBLE
                         pokemonAbilityButtonTwo.setOnClickListener {
-                            Log.e("clicked", abilities[1])
+                            createAbilityDialog(abilities[1])
                         }
                     }
                     if (abilities.size >= 3) {
                         pokemonAbilityButtonTree.text = abilities[2]
                         pokemonAbilityButtonTree.visibility = View.VISIBLE
                         pokemonAbilityButtonTree.setOnClickListener {
-                            Log.e("clicked", abilities[2])
+                            createAbilityDialog(abilities[2])
                         }
                     }
                 }
@@ -159,6 +161,15 @@ class PokemonDetailsActivity : AppCompatActivity() {
                 pokemonDetailsCardView.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun createAbilityDialog(ability: String) = runOnUI {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val dialogView = layoutInflater.inflate(R.layout.dialog_ability, null)
+        dialogBuilder.setView(dialogView)
+        val dialog = dialogBuilder.create()
+        dialog.show()
+        dialogView.abilityTitle.text = ability
     }
 
     private val loadingObserver = Observer<Boolean> { showLoading ->
