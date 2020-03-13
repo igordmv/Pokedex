@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
             val fragment: PokemonListFragmentApp? =
                 supportFragmentManager.findFragmentByTag(POKEMON_LIST_FRAGMENT_TAG) as PokemonListFragmentApp?
 
+
             supportFragmentManager.beginTransaction()
                 .replace(FRAGMENTS_CONTAINER, fragment as StatelessFragment, POKEMON_LIST_FRAGMENT_TAG)
                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
         fragmentTag: String
     ) {
         currentFragment?.let { fragment ->
+            fragment.restoreState()
             supportFragmentManager.beginTransaction()
                 .replace(FRAGMENTS_CONTAINER, fragment, fragmentTag)
                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
