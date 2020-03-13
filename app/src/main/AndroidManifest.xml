@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.idv.pokedex">
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -12,9 +13,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.MainActivity"
-            android:configChanges="keyboardHidden|screenSize"
-            android:launchMode="singleTop">
+            android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -35,7 +34,6 @@
 
         <activity
             android:name="com.idv.pokemondetails.view.PokemonDetailsActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/pokemon_detail"
             android:parentActivityName=".view.MainActivity" />
 

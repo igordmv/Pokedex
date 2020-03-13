@@ -24,6 +24,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/pokemonImage"
         android:layout_width="wrap_content"
@@ -49,270 +50,270 @@
         app:layout_constraintTop_toBottomOf="@id/searchAppBar"
         tools:visibility="visible">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp">
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/pokemonGuidelineTwentyVertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.15" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:fontFamily="@font/opensans_bold"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/pokemonNameTextSize"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Bulbasaur" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonHeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/opensans_bold"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/pokemonHeightTextSize"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonName"
-                tools:text="@string/height" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonWeight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/opensans_bold"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="@dimen/pokemonWidthTextSize"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonHeight"
-                tools:text="@string/weight" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonSpeed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/pokemonSpeedMarginTop"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/speed"
-                android:textColor="@android:color/background_dark"
-                android:textSize="@dimen/pokemonWidthTextSize"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonWeight"
-                tools:text="@string/speed" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonAttack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/attack"
-                android:textColor="@android:color/background_dark"
-                android:textSize="@dimen/pokemonWidthTextSize"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonSpeed"
-                tools:text="@string/attack" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonSpecialAttack"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/specialAttack"
-                android:textColor="@android:color/background_dark"
-                android:textSize="@dimen/pokemonWidthTextSize"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonAttack"
-                tools:text="@string/specialAttack" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonDefence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/defence"
-                android:textColor="@android:color/background_dark"
-                android:textSize="@dimen/pokemonWidthTextSize"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonSpecialAttack"
-                tools:text="@string/defence" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonSpecialDeffence"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/specialDefence"
-                android:textColor="@android:color/background_dark"
-                android:textSize="@dimen/pokemonWidthTextSize"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonDefence"
-                tools:text="@string/specialDefence" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonHp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="@dimen/statsMarginLeft"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/hp"
-                android:textColor="@android:color/background_dark"
-                android:textSize="@dimen/pokemonWidthTextSize"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonSpecialDeffence"
-                tools:text="@string/hp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonTypes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/pokemonTypesMarginStart"
-                android:layout_marginTop="@dimen/pokemonTypesMarginTop"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/type"
-                android:textColor="@android:color/background_dark"
-                android:textSize="@dimen/pokemonWidthTextSize"
-                app:layout_constraintEnd_toStartOf="@+id/pokemonGuidelineTwentyVertical"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonImageRecyclerView"
-                tools:text="@string/type" />
-
-            <Button
-                android:id="@+id/pokemonTypeButtonOne"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/pokemonTypeButtonsMarginLeft"
-                android:layout_marginTop="@dimen/pokemonTypeButtonOneMarginTop"
-                android:background="@drawable/button_background"
-                android:textColor="@android:color/black"
-                android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/pokemonTypes"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonImageRecyclerView"
-                tools:text="TYPE1"
-                tools:visibility="visible" />
-
-            <Button
-                android:id="@+id/pokemonTypeButtonTwo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/pokemonTypeButtonsMarginLeft"
-                android:layout_marginTop="@dimen/pokemonTypeButtonOneMarginTop"
-                android:background="@drawable/button_background"
-                android:textColor="@android:color/black"
-                android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/pokemonTypeButtonOne"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonImageRecyclerView"
-                tools:text="TYPE2"
-                tools:visibility="visible" />
-
-            <Button
-                android:id="@+id/pokemonTypeButtonTree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/pokemonTypeButtonsMarginLeft"
-                android:layout_marginTop="@dimen/pokemonTypeButtonOneMarginTop"
-                android:background="@drawable/button_background"
-                android:textColor="@android:color/black"
-                android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/pokemonTypeButtonTwo"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonImageRecyclerView"
-                tools:text="TYPE3"
-                tools:visibility="visible" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/pokemonAbilities"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/pokemonAbilityTextMarginTop"
-                android:fontFamily="@font/opensans_bold"
-                android:text="@string/ability"
-                android:textColor="@android:color/background_dark"
-                android:textSize="@dimen/pokemonWidthTextSize"
-                app:layout_constraintEnd_toStartOf="@+id/pokemonGuidelineTwentyVertical"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonTypes"
-                tools:text="@string/ability" />
-
-            <Button
-                android:id="@+id/pokemonAbilityButtonOne"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/pokemonAbilityButtonsMarginLeft"
-                android:layout_marginTop="@dimen/pokemonAbilitiesMarginTop"
-                android:background="@drawable/button_background"
-                android:textColor="@android:color/black"
-                android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/pokemonAbilities"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonTypes"
-                tools:text="ABILITY1"
-                tools:visibility="visible" />
-
-            <Button
-                android:id="@+id/pokemonAbilityButtonTwo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/pokemonAbilityButtonsMarginLeft"
-                android:layout_marginTop="@dimen/pokemonAbilitiesMarginTop"
-                android:background="@drawable/button_background"
-                android:textColor="@android:color/black"
-                android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/pokemonAbilityButtonOne"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonTypes"
-                tools:text="ABILITY2"
-                tools:visibility="visible" />
-
-            <Button
-                android:id="@+id/pokemonAbilityButtonTree"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/pokemonAbilityButtonsMarginLeft"
-                android:layout_marginTop="@dimen/pokemonAbilitiesMarginTop"
-                android:background="@drawable/button_background"
-                android:textColor="@android:color/black"
-                android:visibility="gone"
-                app:layout_constraintStart_toEndOf="@+id/pokemonAbilityButtonTwo"
-                app:layout_constraintTop_toBottomOf="@+id/pokemonTypes"
-                tools:text="ABILITY3"
-                tools:visibility="visible" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/pokemonImageRecyclerView"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/pokemonImageRecyclerViewMarginTop"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/pokemonHp"
-                tools:itemCount="3"
-                tools:listitem="@layout/view_holder_pokemon_list_horizontal"
-                tools:orientation="horizontal" />
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/pokemonGuidelineTwentyVertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.15" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="40dp"
+                    android:fontFamily="@font/opensans_bold"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/pokemonNameTextSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Bulbasaur" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonHeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/opensans_bold"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/pokemonHeightTextSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonName"
+                    tools:text="@string/height" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonWeight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/opensans_bold"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/pokemonWidthTextSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonHeight"
+                    tools:text="@string/weight" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonSpeed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/pokemonSpeedMarginTop"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/speed"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/pokemonWidthTextSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonWeight"
+                    tools:text="@string/speed" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonAttack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/attack"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/pokemonWidthTextSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonSpeed"
+                    tools:text="@string/attack" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonSpecialAttack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/specialAttack"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/pokemonWidthTextSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonAttack"
+                    tools:text="@string/specialAttack" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonDefence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/defence"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/pokemonWidthTextSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonSpecialAttack"
+                    tools:text="@string/defence" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonSpecialDeffence"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/specialDefence"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/pokemonWidthTextSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonDefence"
+                    tools:text="@string/specialDefence" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonHp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/statsMarginLeft"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/hp"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/pokemonWidthTextSize"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonSpecialDeffence"
+                    tools:text="@string/hp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonTypes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/pokemonTypesMarginStart"
+                    android:layout_marginTop="@dimen/pokemonTypesMarginTop"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/type"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/pokemonWidthTextSize"
+                    app:layout_constraintEnd_toStartOf="@+id/pokemonGuidelineTwentyVertical"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonImageRecyclerView"
+                    tools:text="@string/type" />
+
+                <Button
+                    android:id="@+id/pokemonTypeButtonOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/pokemonTypeButtonsMarginLeft"
+                    android:layout_marginTop="@dimen/pokemonTypeButtonOneMarginTop"
+                    android:background="@drawable/button_background"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/pokemonTypes"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonImageRecyclerView"
+                    tools:text="TYPE1"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/pokemonTypeButtonTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/pokemonTypeButtonsMarginLeft"
+                    android:layout_marginTop="@dimen/pokemonTypeButtonOneMarginTop"
+                    android:background="@drawable/button_background"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/pokemonTypeButtonOne"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonImageRecyclerView"
+                    tools:text="TYPE2"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/pokemonTypeButtonTree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/pokemonTypeButtonsMarginLeft"
+                    android:layout_marginTop="@dimen/pokemonTypeButtonOneMarginTop"
+                    android:background="@drawable/button_background"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/pokemonTypeButtonTwo"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonImageRecyclerView"
+                    tools:text="TYPE3"
+                    tools:visibility="visible" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/pokemonAbilities"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/pokemonAbilityTextMarginTop"
+                    android:fontFamily="@font/opensans_bold"
+                    android:text="@string/ability"
+                    android:textColor="@android:color/background_dark"
+                    android:textSize="@dimen/pokemonWidthTextSize"
+                    app:layout_constraintEnd_toStartOf="@+id/pokemonGuidelineTwentyVertical"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonTypes"
+                    tools:text="@string/ability" />
+
+                <Button
+                    android:id="@+id/pokemonAbilityButtonOne"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/pokemonAbilityButtonsMarginLeft"
+                    android:layout_marginTop="@dimen/pokemonAbilitiesMarginTop"
+                    android:background="@drawable/button_background"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/pokemonAbilities"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonTypes"
+                    tools:text="ABILITY1"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/pokemonAbilityButtonTwo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/pokemonAbilityButtonsMarginLeft"
+                    android:layout_marginTop="@dimen/pokemonAbilitiesMarginTop"
+                    android:background="@drawable/button_background"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/pokemonAbilityButtonOne"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonTypes"
+                    tools:text="ABILITY2"
+                    tools:visibility="visible" />
+
+                <Button
+                    android:id="@+id/pokemonAbilityButtonTree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/pokemonAbilityButtonsMarginLeft"
+                    android:layout_marginTop="@dimen/pokemonAbilitiesMarginTop"
+                    android:background="@drawable/button_background"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/pokemonAbilityButtonTwo"
+                    app:layout_constraintTop_toBottomOf="@+id/pokemonTypes"
+                    tools:text="ABILITY3"
+                    tools:visibility="visible" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/pokemonImageRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/pokemonImageRecyclerViewMarginTop"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pokemonHp"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/view_holder_pokemon_list_horizontal"
+                    tools:orientation="horizontal" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
 

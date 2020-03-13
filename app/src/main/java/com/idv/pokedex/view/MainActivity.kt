@@ -6,11 +6,11 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.globo.globosatplay.core.fragment.StatelessFragment
-import com.idv.core.extensions.runOnBackground
 import com.idv.pokedex.MainController
 import com.idv.pokedex.R
 import com.idv.pokedex.injector.pokemonlist.PokemonListFragmentApp
 import com.idv.pokemon_list.view.PokemonListFragment
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,8 +26,17 @@ class MainActivity : AppCompatActivity() {
             .setContext(this)
             .setPokemonListObservable(showPokemonListObservable)
             .build()
+        if (savedInstanceState == null) {
+            controller?.onViewCreated()
+        } else {
+            val fragment: PokemonListFragmentApp? =
+                supportFragmentManager.findFragmentByTag(POKEMON_LIST_FRAGMENT_TAG) as PokemonListFragmentApp?
 
-        controller?.onViewCreated()
+            supportFragmentManager.beginTransaction()
+                .replace(FRAGMENTS_CONTAINER, fragment as StatelessFragment, POKEMON_LIST_FRAGMENT_TAG)
+                .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
+                .commit()
+        }
 
     }
 
@@ -47,11 +56,10 @@ class MainActivity : AppCompatActivity() {
         fragmentTag: String
     ) {
         currentFragment?.let { fragment ->
-            fragment.restoreState()
             supportFragmentManager.beginTransaction()
                 .replace(FRAGMENTS_CONTAINER, fragment, fragmentTag)
                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
-                .commitAllowingStateLoss()
+                .commit()
         }
     }
 

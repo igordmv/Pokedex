@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -88,6 +89,18 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
         configureSearchView()
 
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun saveState(supportFragmentManager: FragmentManager) {
+        try {
+            pokemonSavedState = supportFragmentManager.saveFragmentInstanceState(this)
+        } catch (e: IllegalStateException) {
+            e.printStackTrace()
+        }
+    }
+
+    override fun restoreState() {
+        setInitialSavedState(pokemonSavedState)
     }
 
     private fun configureSearchView() {
@@ -259,5 +272,6 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
         const val TOAST_FAIL_REQUEST = "Não foi possível fazer a requisição."
         private const val DELAY: Long = 1000
         private const val AUTO_SEARCH_TEXT_MIN_SIZE = 3
+        private var pokemonSavedState: SavedState? = null
     }
 }
