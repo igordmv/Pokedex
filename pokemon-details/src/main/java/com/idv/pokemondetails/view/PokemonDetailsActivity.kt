@@ -1,6 +1,7 @@
 package com.idv.pokemondetails.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -12,6 +13,7 @@ import com.idv.core.extensions.runOnUI
 import com.idv.pokemondetails.PokemonDetailsController
 import com.idv.pokemondetails.R
 import kotlinx.android.synthetic.main.activity_pokemon_details.*
+
 
 class PokemonDetailsActivity : AppCompatActivity() {
 
@@ -38,7 +40,8 @@ class PokemonDetailsActivity : AppCompatActivity() {
             .build()
 
         identifier?.let {
-            runOnBackground {
+            runOnUI {
+                searchToolbar.title = it.capitalize()
                 controller?.getPokemon(it)
             }
         }
@@ -56,8 +59,6 @@ class PokemonDetailsActivity : AppCompatActivity() {
         pokemonDetails?.let { pokemonDetails ->
             runOnUI {
                 searchToolbar.title = pokemonDetails.name?.capitalize()
-                pokemonName.text = pokemonDetails.name?.capitalize()
-
                 pokemonDetails.defaultImage?.let { defaultImage ->
                     ImageConverter.load(
                         this,
@@ -67,6 +68,77 @@ class PokemonDetailsActivity : AppCompatActivity() {
                         POKEMON_HEIGHT
                     )
                 }
+                pokemonDetails.hitPoints?.let { hp ->
+                    pokemonHp.text = getString(R.string.hp, hp)
+                }
+                pokemonDetails.speed?.let { speed ->
+                    pokemonSpeed.text = getString(R.string.speed, speed)
+                }
+                pokemonDetails.attack?.let { attack ->
+                    pokemonAttack.text = getString(R.string.attack, attack)
+                }
+                pokemonDetails.specialAttack?.let { specialAttack ->
+                    pokemonSpecialAttack.text = getString(R.string.specialAttack, specialAttack)
+                }
+                pokemonDetails.defence?.let { defence ->
+                    pokemonDefence.text = getString(R.string.defence, defence)
+                }
+                pokemonDetails.specialDefence?.let { specialDefence ->
+                    pokemonSpecialDeffence.text = getString(R.string.specialDefence, specialDefence)
+                }
+                pokemonDetails.height?.let {
+                    pokemonHeight.text = getString(R.string.height, it)
+                }
+                pokemonDetails.weight?.let {
+                    pokemonWeight.text = getString(R.string.weight, it)
+                }
+                pokemonDetails.types?.let { types ->
+                    if(types.isNotEmpty()){
+                        pokemonTypeButtonOne.text = types[0]
+                        pokemonTypeButtonOne.visibility = View.VISIBLE
+                        pokemonTypeButtonOne.setOnClickListener {
+                            Log.e("clicked", types[0])
+                        }
+                    }
+                    if(types.size >= 2){
+                        pokemonTypeButtonTwo.text = types[1]
+                        pokemonTypeButtonTwo.visibility = View.VISIBLE
+                        pokemonTypeButtonTwo.setOnClickListener {
+                            Log.e("clicked", types[1])
+                        }
+                    }
+                    if(types.size >= 3){
+                        pokemonTypeButtonTree.text = types[2]
+                        pokemonTypeButtonTree.visibility = View.VISIBLE
+                        pokemonTypeButtonTree.setOnClickListener {
+                            Log.e("clicked", types[2])
+                        }
+                    }
+                }
+                pokemonDetails.abilities?.let { abilities ->
+                    if(abilities.isNotEmpty()){
+                        pokemonAbilityButtonOne.text = abilities[0]
+                        pokemonAbilityButtonOne.visibility = View.VISIBLE
+                        pokemonAbilityButtonOne.setOnClickListener {
+                            Log.e("clicked", abilities[0])
+                        }
+                    }
+                    if(abilities.size >= 2){
+                        pokemonAbilityButtonTwo.text = abilities[1]
+                        pokemonAbilityButtonTwo.visibility = View.VISIBLE
+                        pokemonAbilityButtonTwo.setOnClickListener {
+                            Log.e("clicked", abilities[1])
+                        }
+                    }
+                    if(abilities.size >= 3){
+                        pokemonAbilityButtonTree.text = abilities[2]
+                        pokemonAbilityButtonTree.visibility = View.VISIBLE
+                        pokemonAbilityButtonTree.setOnClickListener {
+                            Log.e("clicked", abilities[2])
+                        }
+                    }
+                }
+                pokemonName.text = pokemonDetails.name?.capitalize()
                 pokemonDetailsCardView.visibility = View.VISIBLE
             }
         }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="weight">Weight: %1$d kg</string>
+    <string name="height">Height: %1$d m</string>
+    <string name="type">Type </string>
+    <string name="ability">Ability </string>
+    <string name="hp">Hp: %1$d</string>
+    <string name="specialDefence">Special Defense: %1$d</string>
+    <string name="specialAttack">Special Attack: %1$d</string>
+    <string name="attack">Attack: %1$d</string>
+    <string name="defence">Defense: %1$d</string>
+    <string name="speed">Speed: %1$d</string>
+</resources>

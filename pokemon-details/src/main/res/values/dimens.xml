@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="pokemonNameMarginTop">20dp</dimen>
-    <dimen name="pokemonImageMarginEnd">20dp</dimen>
-    <dimen name="pokemonImageMarginTop">20dp</dimen>
+    <dimen name="pokemonTypesMarginStart">20dp</dimen>
+    <dimen name="pokemonTypesMarginTop">20dp</dimen>
+    <dimen name="pokemonImageRecyclerViewMarginTop">20dp</dimen>
+    <dimen name="pokemonTypeButtonOneMarginTop">10dp</dimen>
+    <dimen name="pokemonTypeButtonsMarginLeft">15dp</dimen>
+    <dimen name="pokemonAbilitiesMarginTop">20dp</dimen>
+    <dimen name="pokemonAbilityMarginStart">10dp</dimen>
+    <dimen name="pokemonAbilityButtonsMarginLeft">15dp</dimen>
+    <dimen name="pokemonAbilityTextMarginTop">30dp</dimen>
+    <dimen name="statsMarginLeft">20dp</dimen>
+    <dimen name="pokemonSpeedMarginTop">30dp</dimen>
 </resources>

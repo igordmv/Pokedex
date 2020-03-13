@@ -64,7 +64,7 @@ internal class PokemonServiceMapperImpl : PokemonServiceMapper {
 
     private fun getDefence(stats: List<StatsResponseModel>?): Int? {
         stats?.forEach { stat ->
-            if (stat.stat?.name == "speed")
+            if (stat.stat?.name == "defense")
                 return stat.baseStat
         }
         return null
@@ -72,7 +72,7 @@ internal class PokemonServiceMapperImpl : PokemonServiceMapper {
 
     private fun getSpecialDefence(stats: List<StatsResponseModel>?): Int? {
         stats?.forEach { stat ->
-            if (stat.stat?.name == "speed")
+            if (stat.stat?.name == "special-defense")
                 return stat.baseStat
         }
         return null
@@ -80,7 +80,7 @@ internal class PokemonServiceMapperImpl : PokemonServiceMapper {
 
     private fun getAttack(stats: List<StatsResponseModel>?): Int? {
         stats?.forEach { stat ->
-            if (stat.stat?.name == "speed")
+            if (stat.stat?.name == "attack")
                 return stat.baseStat
         }
         return null
@@ -88,7 +88,7 @@ internal class PokemonServiceMapperImpl : PokemonServiceMapper {
 
     private fun getSpecialAttack(stats: List<StatsResponseModel>?): Int? {
         stats?.forEach { stat ->
-            if (stat.stat?.name == "speed")
+            if (stat.stat?.name == "special-attack")
                 return stat.baseStat
         }
         return null
@@ -96,7 +96,7 @@ internal class PokemonServiceMapperImpl : PokemonServiceMapper {
 
     private fun getHitpoints(stats: List<StatsResponseModel>?): Int? {
         stats?.forEach { stat ->
-            if (stat.stat?.name == "speed")
+            if (stat.stat?.name == "hp")
                 return stat.baseStat
         }
         return null

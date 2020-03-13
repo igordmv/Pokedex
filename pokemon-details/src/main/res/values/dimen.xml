@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="pokemonNameMarginTop">20dp</dimen>
+    <dimen name="pokemonImageMarginEnd">20dp</dimen>
+    <dimen name="pokemonImageMarginTop">20dp</dimen>
+    <dimen name="pokemonWidthTextSize">15sp</dimen>
+    <dimen name="pokemonHeightTextSize">15dp</dimen>
+    <dimen name="pokemonWeightMarginEnd">30dp</dimen>
+    <dimen name="pokemonHeightMarginEnd">30dp</dimen>
     <dimen name="pokemonNameTextSize">35sp</dimen>
     <dimen name="pokemonNameMarginStart">40dp</dimen>
 </resources>
