@@ -189,6 +189,10 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
                     )
                     pokemonName.text = pokemon.name.capitalize()
 
+                    searchedPokemonConstraintLayout.setOnClickListener {
+                        navigator.navigatePokemonDetails(pokemon.name)
+                    }
+
                 }?:run {
                     query?.let { query ->
                         pokemonRecyclerView.visibility = View.GONE
