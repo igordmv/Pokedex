@@ -2,8 +2,7 @@ package com.idv.pokemon.service
 
 import com.google.gson.Gson
 import com.idv.pokemon.service.retrofitmodel.*
-import com.idv.pokemon.service.retrofitmodel.PokemonDetailsRespondeModel
-import com.idv.pokemon.service.retrofitmodel.PokemonEvolutionChainResponseModel
+import com.idv.pokemon.service.retrofitmodel.PokemonDetailsResponseModel
 import com.idv.pokemon.service.retrofitmodel.PokemonEvolutionChainUrlResponseModel
 import com.idv.pokemon.service.retrofitmodel.PokemonResponseModel
 import com.idv.pokemon.service.retrofitmodel.PokemonsResponseModel
@@ -24,7 +23,7 @@ internal interface PokemonRetrofitService {
     fun getAbilityDetails(@Url url: String): Call<PokemonEffectEntriesResponseModel>
 
     @GET()
-    fun getPokemonDetails(@Url url: String): Call<PokemonDetailsRespondeModel>
+    fun getPokemonDetails(@Url url: String): Call<PokemonDetailsResponseModel>
 
     @GET()
     fun getEvolutionChainUrl(@Url url: String): Call<PokemonEvolutionChainUrlResponseModel>

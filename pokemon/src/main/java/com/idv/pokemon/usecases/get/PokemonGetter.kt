@@ -21,6 +21,9 @@ interface PokemonGetter {
     suspend fun getPokemons(offset : Int? = 0) : List<Pokemon>
 
     @Throws(IOException::class)
+    suspend fun getPokemonsByType(type : String) : List<Pokemon>
+
+    @Throws(IOException::class)
     suspend fun getPokemonEvolutionChain(identifier: String) : PokemonEvolutionChain
 
     @Throws(IOException::class)

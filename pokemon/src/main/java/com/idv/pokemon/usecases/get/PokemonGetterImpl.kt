@@ -30,6 +30,12 @@ internal class PokemonGetterImpl(
     }
 
     @Throws(IOException::class)
+    override suspend fun getPokemonsByType(type: String): List<Pokemon> {
+        val pokemons = service.getPokemonByType(type)
+        return mapper.mapPokemonByType(pokemons)
+    }
+
+    @Throws(IOException::class)
     override suspend fun getPokemonEvolutionChain(identifier: String): PokemonEvolutionChain =
         PokemonEvolutionChain("", emptyList())
 

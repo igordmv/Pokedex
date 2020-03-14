@@ -24,7 +24,7 @@ internal class PokemonServiceMapperImpl : PokemonServiceMapper {
         return pokemons ?: emptyList()
     }
 
-    override fun mapPokemonDetails(pokemonDetails: PokemonDetailsRespondeModel): PokemonDetails {
+    override fun mapPokemonDetails(pokemonDetails: PokemonDetailsResponseModel): PokemonDetails {
         return PokemonDetails(
             pokemonDetails.id,
             pokemonDetails.name,
@@ -45,6 +45,15 @@ internal class PokemonServiceMapperImpl : PokemonServiceMapper {
 
     override fun mapAbilities(abilityName: String, abilityDetails: PokemonEffectEntriesResponseModel): PokemonAbility {
         return PokemonAbility(abilityName, abilityDetails?.effectEntries?.first()?.effect, abilityDetails?.effectEntries?.first()?.shortEffect)
+    }
+
+    override fun mapPokemonByType(pokemons: PokemonsTypeResponseModel): List<Pokemon> {
+        return pokemons.pokemonList?.map { mapPokemonWithType(it) } ?: emptyList()
+    }
+
+    private fun mapPokemonWithType(pokemon: PokemonTypeResponseModel): Pokemon {
+        val id = getPokemonId(pokemon.pokemon?.url?: "")
+        return Pokemon(id, pokemon.pokemon?.name?: "Not Found", "$IMAGE_URL$id.png")
     }
 
     private fun getAbilities(abilities: List<AbilitiesResponseModel>?): List<String>? {
@@ -127,8 +136,12 @@ internal class PokemonServiceMapperImpl : PokemonServiceMapper {
     }
 
     private fun mapPokemon(result: ResultResponseModel): Pokemon {
-        val id = result.url?.replace("v2".toRegex(), "")?.replace("[^0-9]".toRegex(), "")
-        return Pokemon(id ?: "", result.name ?: "not found", "$IMAGE_URL$id.png")
+        val id = getPokemonId(result.url?: "")
+        return Pokemon(id, result.name ?: "not found", "$IMAGE_URL$id.png")
+    }
+
+    private fun getPokemonId(url : String) : String {
+       return url?.replace("v2".toRegex(), "")?.replace("[^0-9]".toRegex(), "")
     }
 
     companion object {

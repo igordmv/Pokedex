@@ -1,7 +1,7 @@
 package com.idv.pokemon.service
 
 import com.idv.core.service.ServiceFactory
-import com.idv.pokemon.service.retrofitmodel.PokemonDetailsRespondeModel
+import com.idv.pokemon.service.retrofitmodel.PokemonDetailsResponseModel
 import com.idv.pokemon.service.retrofitmodel.PokemonEffectEntriesResponseModel
 import com.idv.pokemon.service.retrofitmodel.PokemonResponseModel
 import com.idv.pokemon.service.retrofitmodel.PokemonsResponseModel
@@ -39,7 +39,7 @@ internal class PokemonServiceImpl(factory: ServiceFactory) : PokemonService {
         }
     }
 
-    override suspend fun getPokemonDetails(identifier: String) : PokemonDetailsRespondeModel {
+    override suspend fun getPokemonDetails(identifier: String) : PokemonDetailsResponseModel {
         try {
             val response = service.getPokemonDetails(POKEMON_URL + identifier).execute()
             return response.body()!!

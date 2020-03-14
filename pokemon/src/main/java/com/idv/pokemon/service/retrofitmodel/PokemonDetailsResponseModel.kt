@@ -2,7 +2,7 @@ package com.idv.pokemon.service.retrofitmodel
 
 import com.google.gson.annotations.SerializedName
 
-internal class PokemonDetailsRespondeModel {
+internal class PokemonDetailsResponseModel {
 
     @SerializedName("name")
     var name : String? = null
