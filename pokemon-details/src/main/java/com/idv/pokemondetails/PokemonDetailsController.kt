@@ -39,6 +39,17 @@ internal class PokemonDetailsController(
         }
     }
 
+    fun getPokemonsByType(type : String ) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            presenter.presentLoadingState(true)
+            val pokemons = pokemonGetter.getPokemonsByType(type.toLowerCase())
+            presenter.presentTypePokemons(pokemons)
+        } catch (e: IOException) {
+            presenter.presentError()
+        }
+    }
+
+
     class Builder() {
 
         private lateinit var activityRef: WeakReference<PokemonDetailsActivity>

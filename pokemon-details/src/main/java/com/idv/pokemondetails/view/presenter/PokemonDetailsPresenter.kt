@@ -1,6 +1,7 @@
 package com.idv.pokemondetails.view.presenter
 
 import androidx.lifecycle.MutableLiveData
+import com.idv.pokemon_entity.Pokemon
 import com.idv.pokemon_entity.PokemonAbility
 import com.idv.pokemon_entity.PokemonDetails
 import com.idv.pokemondetails.view.PokemonAbilityDetailsViewModel
@@ -24,6 +25,8 @@ internal interface PokemonDetailsPresenter {
     fun getPokemonDetailsObservable(): MutableLiveData<PokemonDetailsViewModel>
 
     fun getAbilityDetailsObservable(): MutableLiveData<PokemonAbilityDetailsViewModel>
+
+    fun presentTypePokemons(pokemons: List<Pokemon>)
 
     companion object Factory {
         fun make() : PokemonDetailsPresenter {
