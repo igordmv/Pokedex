@@ -23,6 +23,9 @@ internal interface PokemonRetrofitService {
     fun getAbilityDetails(@Url url: String): Call<PokemonEffectEntriesResponseModel>
 
     @GET()
+    fun getPokemonByType(@Url url: String): Call<PokemonsTypeResponseModel>
+
+    @GET()
     fun getPokemonDetails(@Url url: String): Call<PokemonDetailsResponseModel>
 
     @GET()

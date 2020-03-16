@@ -8,6 +8,7 @@ import com.idv.pokemon.usecases.get.PokemonGetter
 import com.idv.pokemondetails.view.PokemonAbilityDetailsViewModel
 import com.idv.pokemondetails.view.PokemonDetailsActivity
 import com.idv.pokemondetails.view.PokemonDetailsViewModel
+import com.idv.pokemondetails.view.TypedPokemonsViewModel
 import com.idv.pokemondetails.view.presenter.PokemonDetailsPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -43,7 +44,7 @@ internal class PokemonDetailsController(
         try {
             presenter.presentLoadingState(true)
             val pokemons = pokemonGetter.getPokemonsByType(type.toLowerCase())
-            presenter.presentTypePokemons(pokemons)
+            presenter.presentTypePokemons(pokemons, type)
         } catch (e: IOException) {
             presenter.presentError()
         }
@@ -57,6 +58,7 @@ internal class PokemonDetailsController(
         private lateinit var errorObserver: Observer<Boolean>
         private lateinit var pokemonDetailsObserver: Observer<PokemonDetailsViewModel>
         private lateinit var abilityDetailsObserver: Observer<PokemonAbilityDetailsViewModel>
+        private lateinit var typedPokemonsObserver: Observer<List<TypedPokemonsViewModel>>
 
         fun setActivity(activity: PokemonDetailsActivity) = apply {
             this.activityRef = WeakReference(activity)
@@ -78,6 +80,10 @@ internal class PokemonDetailsController(
             this.abilityDetailsObserver = abilityDetailsObserver
         }
 
+        fun setTypedPokemonsObserver(typedPokemonsObserver: Observer<List<TypedPokemonsViewModel>>) = apply {
+            this.typedPokemonsObserver = typedPokemonsObserver
+        }
+
         fun build(): PokemonDetailsController? {
             var activity = activityRef.get()
             activity?.let { _ ->
@@ -86,6 +92,7 @@ internal class PokemonDetailsController(
                 presenter.getLoadingObservable().observe(activity, loadingObserver)
                 presenter.getPokemonDetailsObservable().observe(activity, pokemonDetailsObserver)
                 presenter.getAbilityDetailsObservable().observe(activity, abilityDetailsObserver)
+                presenter.getTypedPokemonsObservable().observe(activity, typedPokemonsObserver)
 
                 val pokemonGetter =
                     PokemonGetter.Builder().setRetrofitFactory(RetrofitServiceFactory).build()

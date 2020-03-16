@@ -6,6 +6,7 @@ import com.idv.pokemon_entity.PokemonAbility
 import com.idv.pokemon_entity.PokemonDetails
 import com.idv.pokemondetails.view.PokemonAbilityDetailsViewModel
 import com.idv.pokemondetails.view.PokemonDetailsViewModel
+import com.idv.pokemondetails.view.TypedPokemonsViewModel
 import com.idv.pokemondetails.view.mapper.PokemonDetailsMapper
 
 internal interface PokemonDetailsPresenter {
@@ -26,7 +27,9 @@ internal interface PokemonDetailsPresenter {
 
     fun getAbilityDetailsObservable(): MutableLiveData<PokemonAbilityDetailsViewModel>
 
-    fun presentTypePokemons(pokemons: List<Pokemon>)
+    fun presentTypePokemons(pokemons: List<Pokemon>, type: String)
+
+    fun getTypedPokemonsObservable(): MutableLiveData<List<TypedPokemonsViewModel>>
 
     companion object Factory {
         fun make() : PokemonDetailsPresenter {
@@ -34,4 +37,5 @@ internal interface PokemonDetailsPresenter {
             return PokemonDetailsPresenterImpl(mapper)
         }
     }
+
 }

@@ -15,13 +15,18 @@ import com.idv.core.extensions.runOnUI
 import com.idv.pokemondetails.PokemonDetailsController
 import com.idv.pokemondetails.R
 import com.idv.pokemondetails.view.adapter.PokemonDetailsAdapter
+import com.idv.pokemondetails.view.adapter.PokemonTypeAdapter
 import kotlinx.android.synthetic.main.activity_pokemon_details.*
 import kotlinx.android.synthetic.main.dialog_ability.view.*
+import kotlinx.android.synthetic.main.dialog_typed_pokemons.*
+import kotlinx.android.synthetic.main.dialog_typed_pokemons.view.*
 
 class PokemonDetailsActivity : AppCompatActivity() {
 
     private var controller: PokemonDetailsController? = null
-    private lateinit var pokemonImages: PokemonDetailsAdapter
+    private lateinit var pokemonImagesAdapter: PokemonDetailsAdapter
+    private lateinit var pokemonTypeAdapter: PokemonTypeAdapter
+    private var typedDialog : AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +47,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
             .setLoadingObserver(loadingObserver)
             .setPokemonDetailsObserver(pokemonDetailsObserver)
             .setAbilityDetailsObserver(pokemonAbilityObserver)
+            .setTypedPokemonsObserver(typedPokemonsObserver)
             .build()
 
         identifier?.let {
@@ -52,12 +58,50 @@ class PokemonDetailsActivity : AppCompatActivity() {
         }
     }
 
+    fun refreshContent(pokemon : String) = runOnUI {
+        typedDialog?.let { it.dismiss()}
+        pokemonTypeButtonOne.visibility = View.GONE
+        pokemonTypeButtonTwo.visibility = View.GONE
+        pokemonTypeButtonTree.visibility = View.GONE
+
+        pokemonAbilityButtonOne.visibility = View.GONE
+        pokemonAbilityButtonTwo.visibility = View.GONE
+        pokemonAbilityButtonTree.visibility = View.GONE
+
+        searchToolbar.title = pokemon.capitalize()
+        controller?.getPokemon(pokemon)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home ->
                 finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private val typedPokemonsObserver = Observer<List<TypedPokemonsViewModel>> { type ->
+        runOnUI {
+            val dialogBuilder = AlertDialog.Builder(this)
+            val dialogView = layoutInflater.inflate(R.layout.dialog_typed_pokemons, null)
+            dialogBuilder.setView(dialogView)
+            typedDialog = dialogBuilder.create()
+            typedDialog?.show()
+            dialogView.pokemonType.text = type.first().type.capitalize()
+            pokemonTypeAdapter =
+                PokemonTypeAdapter(
+                    this,
+                    type as MutableList<TypedPokemonsViewModel>
+                )
+            val mLayoutManager = LinearLayoutManager(this)
+            mLayoutManager.orientation = RecyclerView.HORIZONTAL
+            dialogView.pokemonTypeImageRecyclerView?.apply {
+                layoutManager = mLayoutManager
+                adapter = pokemonTypeAdapter
+                visibility = View.VISIBLE
+            }
+
+        }
     }
 
     private val pokemonAbilityObserver = Observer<PokemonAbilityDetailsViewModel> { ability ->
@@ -87,7 +131,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
                     )
                 }
                 pokemonDetails.images?.let {
-                    pokemonImages =
+                    pokemonImagesAdapter =
                         PokemonDetailsAdapter(
                             this,
                             it as MutableList<String>
@@ -96,7 +140,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
                     mLayoutManager.orientation = RecyclerView.HORIZONTAL
                     pokemonImageRecyclerView?.apply {
                         layoutManager = mLayoutManager
-                        adapter = pokemonImages
+                        adapter = pokemonImagesAdapter
                         visibility = View.VISIBLE
                     }
                 }
@@ -130,21 +174,21 @@ class PokemonDetailsActivity : AppCompatActivity() {
                         pokemonTypeButtonOne.text = types[0]
                         pokemonTypeButtonOne.visibility = View.VISIBLE
                         pokemonTypeButtonOne.setOnClickListener {
-                            Log.e("clicked", types[0])
+                            controller?.getPokemonsByType(types[0].toLowerCase())
                         }
                     }
                     if (types.size >= 2) {
                         pokemonTypeButtonTwo.text = types[1]
                         pokemonTypeButtonTwo.visibility = View.VISIBLE
                         pokemonTypeButtonTwo.setOnClickListener {
-                            Log.e("clicked", types[1])
+                            controller?.getPokemonsByType(types[1].toLowerCase())
                         }
                     }
                     if (types.size >= 3) {
                         pokemonTypeButtonTree.text = types[2]
                         pokemonTypeButtonTree.visibility = View.VISIBLE
                         pokemonTypeButtonTree.setOnClickListener {
-                            Log.e("clicked", types[2])
+                            controller?.getPokemonsByType(types[2].toLowerCase())
                         }
                     }
                 }
