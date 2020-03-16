@@ -9,6 +9,7 @@ import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.widget.EditText
@@ -166,6 +167,7 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
         query = message
         val editableText = Editable.Factory().newEditable(message)
         afterTextChanged(editableText)
+        Log.e("IGOR2", message)
 
         runOnUI {
             searchViewText.text = editableText
@@ -215,7 +217,7 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
                         val noResultFoundText = getString(R.string.fragment_pokemonlist_search_view_no_results_found)
                         val spannableString = SpannableString("$noResultFoundText \"$query\"")
                         spannableString.setSpan(
-                            ForegroundColorSpan(Color.WHITE),
+                            ForegroundColorSpan(Color.BLACK),
                             spannableString.length - query.length - 1,
                             spannableString.length - 1,
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE

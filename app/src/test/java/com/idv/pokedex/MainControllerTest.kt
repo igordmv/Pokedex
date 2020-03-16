@@ -6,7 +6,7 @@ import com.nhaarman.mockitokotlin2.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 
-class PokemonListControllerTest {
+class MainControllerTest {
 
     private val presenter = mock<MainPresenter>()
     private val subject = MainController(presenter)

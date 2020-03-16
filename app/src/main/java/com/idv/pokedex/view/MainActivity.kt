@@ -3,6 +3,7 @@ package com.idv.pokedex.view
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.globo.globosatplay.core.fragment.StatelessFragment
@@ -26,13 +27,14 @@ class MainActivity : AppCompatActivity() {
             .setContext(this)
             .setPokemonListObservable(showPokemonListObservable)
             .build()
+
         if (savedInstanceState == null) {
             controller?.onViewCreated()
         } else {
             val fragment: PokemonListFragmentApp? =
                 supportFragmentManager.findFragmentByTag(POKEMON_LIST_FRAGMENT_TAG) as PokemonListFragmentApp?
 
-
+            currentFragment = fragment
             supportFragmentManager.beginTransaction()
                 .replace(FRAGMENTS_CONTAINER, fragment as StatelessFragment, POKEMON_LIST_FRAGMENT_TAG)
                 .setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out)
@@ -69,8 +71,9 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         if (Intent.ACTION_SEARCH == intent?.action) {
             val message = intent.getStringExtra(SearchManager.QUERY)
-            if (currentFragment is PokemonListFragment) {
-                (currentFragment as PokemonListFragment).setSpelledQuery(message)
+            Log.e("IGOR1", message)
+            if (currentFragment is PokemonListFragmentApp) {
+                (currentFragment as PokemonListFragmentApp).setSpelledQuery(message)
             }
         }
     }

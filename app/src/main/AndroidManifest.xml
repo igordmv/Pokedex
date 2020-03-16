@@ -13,7 +13,9 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".view.MainActivity">
+            android:name=".view.MainActivity"
+            android:configChanges="keyboardHidden|screenSize"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
