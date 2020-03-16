@@ -1,7 +1,5 @@
 package com.idv.pokemondetails.view
 
-import com.idv.pokemon_entity.Pokemon
-
 internal data class PokemonDetailsViewModel(
     val id : Int?,
     val name : String?,
@@ -17,5 +15,5 @@ internal data class PokemonDetailsViewModel(
     val specialAttack : Int?,
     val hitPoints : Int?,
     val abilities : List<String>?,
-    val evolutionChain : List<Pokemon>? = null
+    val evolutionChain : List<PokemonEvolutionChainViewModel>? = null
 )

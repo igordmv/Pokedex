@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:fontFamily="@font/opensans_bold"
+        android:textColor="@android:color/black"
         tools:text="POKEMON-NAME"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

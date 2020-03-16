@@ -5,6 +5,7 @@ import com.idv.pokemon_entity.PokemonAbility
 import com.idv.pokemon_entity.PokemonDetails
 import com.idv.pokemondetails.view.PokemonAbilityDetailsViewModel
 import com.idv.pokemondetails.view.PokemonDetailsViewModel
+import com.idv.pokemondetails.view.PokemonEvolutionChainViewModel
 import com.idv.pokemondetails.view.TypedPokemonsViewModel
 
 internal class PokemonDetailsMapperImpl : PokemonDetailsMapper {
@@ -24,8 +25,12 @@ internal class PokemonDetailsMapperImpl : PokemonDetailsMapper {
             pokemonDetails.specialAttack,
             pokemonDetails.hitPoints,
             pokemonDetails.abilities,
-            pokemonDetails.evolutionChain
+            mapPokemonChain(pokemonDetails.evolutionChain)
         )
+    }
+
+    private fun mapPokemonChain(evolutionChain: List<Pokemon>?): List<PokemonEvolutionChainViewModel>? {
+        return evolutionChain?.map {PokemonEvolutionChainViewModel(it.id, it.name, it.image)}
     }
 
     override fun mapAbilities(abilityDetails: PokemonAbility): PokemonAbilityDetailsViewModel {

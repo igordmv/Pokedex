@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4537e5">
+    android:background="@android:color/white"
+    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/searchAppBar"
@@ -24,35 +25,20 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/pokemonImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:elevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchAppBar"
-        tools:src="@drawable/ic_bulbasaur_foreground" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/pokemonDetailsCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="16dp"
-        android:visibility="gone"
-        app:cardBackgroundColor="@android:color/white"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchAppBar"
-        tools:visibility="visible">
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginTop="50dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchAppBar"
+            android:fillViewport="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical"
                 android:layout_marginTop="8dp">
 
                 <androidx.constraintlayout.widget.Guideline
@@ -62,12 +48,22 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_percent="0.15" />
 
+                <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/pokemonImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:elevation="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/ic_bulbasaur_foreground" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/pokemonName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="100dp"
                     android:fontFamily="@font/opensans_bold"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/pokemonNameTextSize"
@@ -188,6 +184,17 @@
                     app:layout_constraintTop_toBottomOf="@+id/pokemonSpecialDeffence"
                     tools:text="@string/hp" />
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/pokemonImageRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pokemonHp"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/view_holder_pokemon_list_horizontal"
+                    tools:orientation="horizontal" />
+
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/pokemonTypes"
                     android:layout_width="wrap_content"
@@ -301,21 +308,35 @@
                     tools:text="ABILITY3"
                     tools:visibility="visible" />
 
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/evolutionChainText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/evolutionChainTextMarginTop"
+                    android:fontFamily="@font/opensans_bold"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/evolutionChainTextSize"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/pokemonAbilities"
+                    android:text="Evolution Chain" />
+
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/pokemonImageRecyclerView"
+                    android:id="@+id/pokemonChainRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/pokemonImageRecyclerViewMarginTop"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/pokemonHp"
+                    app:layout_constraintTop_toBottomOf="@id/evolutionChainText"
                     tools:itemCount="3"
                     tools:listitem="@layout/view_holder_pokemon_list_horizontal"
                     tools:orientation="horizontal" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
+        </androidx.core.widget.NestedScrollView>
 
     <ProgressBar
         android:id="@+id/progressBar"

@@ -15,7 +15,7 @@ internal interface PokemonService {
     suspend fun getPokemons(offset : Int) : PokemonsResponseModel
 
     @Throws(IOException::class)
-    suspend fun getPokemonDetails(identifier: String) : PokemonDetailsResponseModel
+    suspend fun getPokemonDetails(identifier: String) : PokemonDetailsResult
 
     @Throws(IOException::class)
     fun getAbilityDetails(abilityName: String): PokemonEffectEntriesResponseModel

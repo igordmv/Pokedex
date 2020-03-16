@@ -12,4 +12,6 @@
     <dimen name="statsMarginLeft">20dp</dimen>
     <dimen name="pokemonSpeedMarginTop">30dp</dimen>
     <dimen name="abilityShortEffectMarginTop">40dp</dimen>
+    <dimen name="evolutionChainTextSize">20dp</dimen>
+    <dimen name="evolutionChainTextMarginTop">30dp</dimen>
 </resources>

@@ -1,5 +1,6 @@
 package com.idv.pokemon.service.mapper
 
+import com.idv.pokemon.service.PokemonDetailsResult
 import com.idv.pokemon.service.retrofitmodel.*
 import com.idv.pokemon_entity.Pokemon
 import com.idv.pokemon_entity.PokemonAbility
@@ -10,7 +11,7 @@ internal interface PokemonServiceMapper {
 
     fun mapPokemons(pokemons: PokemonsResponseModel): List<Pokemon>
 
-    fun mapPokemonDetails(pokemonDetails: PokemonDetailsResponseModel) : PokemonDetails
+    fun mapPokemonDetails(pokemonDetails: PokemonDetailsResult) : PokemonDetails
 
     fun mapAbilities(abilityName: String, abilityDetails: PokemonEffectEntriesResponseModel): PokemonAbility
 

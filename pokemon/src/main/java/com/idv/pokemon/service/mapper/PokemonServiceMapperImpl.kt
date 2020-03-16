@@ -1,5 +1,6 @@
 package com.idv.pokemon.service.mapper
 
+import com.idv.pokemon.service.PokemonDetailsResult
 import com.idv.pokemon.service.retrofitmodel.*
 import com.idv.pokemon.service.retrofitmodel.PokemonResponseModel
 import com.idv.pokemon.service.retrofitmodel.PokemonsResponseModel
@@ -24,23 +25,45 @@ internal class PokemonServiceMapperImpl : PokemonServiceMapper {
         return pokemons ?: emptyList()
     }
 
-    override fun mapPokemonDetails(pokemonDetails: PokemonDetailsResponseModel): PokemonDetails {
+    override fun mapPokemonDetails(pokemonDetails: PokemonDetailsResult): PokemonDetails {
         return PokemonDetails(
-            pokemonDetails.id,
-            pokemonDetails.name,
-            pokemonDetails.height,
-            pokemonDetails.weight,
-            pokemonDetails.sprites?.front,
-            getAllImages(pokemonDetails.sprites),
-            getAllTypes(pokemonDetails.types),
-            getSpeed(pokemonDetails.stats),
-            getDefence(pokemonDetails.stats),
-            getSpecialDefence(pokemonDetails.stats),
-            getAttack(pokemonDetails.stats),
-            getSpecialAttack(pokemonDetails.stats),
-            getHitpoints(pokemonDetails.stats),
-            getAbilities(pokemonDetails.abilities)
+            pokemonDetails.pokemonDetails.id,
+            pokemonDetails.pokemonDetails.name,
+            pokemonDetails.pokemonDetails.height,
+            pokemonDetails.pokemonDetails.weight,
+            pokemonDetails.pokemonDetails.sprites?.front,
+            getAllImages(pokemonDetails.pokemonDetails.sprites),
+            getAllTypes(pokemonDetails.pokemonDetails.types),
+            getSpeed(pokemonDetails.pokemonDetails.stats),
+            getDefence(pokemonDetails.pokemonDetails.stats),
+            getSpecialDefence(pokemonDetails.pokemonDetails.stats),
+            getAttack(pokemonDetails.pokemonDetails.stats),
+            getSpecialAttack(pokemonDetails.pokemonDetails.stats),
+            getHitpoints(pokemonDetails.pokemonDetails.stats),
+            getAbilities(pokemonDetails.pokemonDetails.abilities),
+            getPokemonChain(pokemonDetails.evolutionChain)
         )
+    }
+
+    private fun getPokemonChain(evolutionChain: PokemonEvolutionChainResponseModel?): List<Pokemon>? {
+        val pokemonList = mutableListOf<Pokemon>()
+        evolutionChain?.chain?.evolvesTo?.forEach {
+            val newPokemons = it.evolvesTo?.let { evolvesTo -> getPokemonsEvolvesToFromChild(evolvesTo)}
+            newPokemons?.let { news -> pokemonList.addAll(news)}
+            val id = getPokemonId(it.specie?.url?: "")
+            pokemonList.add(Pokemon(id, it.specie?.name?: "Not Found", "$IMAGE_URL$id.png"))
+        }
+        return pokemonList
+    }
+
+    private fun getPokemonsEvolvesToFromChild(evolvesTo: List<EvolvesToResponseModel>?): List<Pokemon> {
+        val pokemonList = mutableListOf<Pokemon>()
+        evolvesTo?.forEach {
+            it.evolvesTo?.let { evolvesTo -> getPokemonsEvolvesToFromChild(evolvesTo)}
+            val id = getPokemonId(it.specie?.url?: "")
+            pokemonList.add(Pokemon(id, it.specie?.name?: "Not Found", "$IMAGE_URL$id.png"))
+        }
+        return pokemonList
     }
 
     override fun mapAbilities(abilityName: String, abilityDetails: PokemonEffectEntriesResponseModel): PokemonAbility {

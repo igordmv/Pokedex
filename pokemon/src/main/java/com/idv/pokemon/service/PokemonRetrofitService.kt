@@ -32,5 +32,5 @@ internal interface PokemonRetrofitService {
     fun getEvolutionChainUrl(@Url url: String): Call<PokemonEvolutionChainUrlResponseModel>
 
     @GET()
-    fun getEvolutionChain(@Url url: String): Call<Gson>
+    fun getEvolutionChain(@Url url: String): Call<PokemonEvolutionChainResponseModel>
 }

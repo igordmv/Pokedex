@@ -41,10 +41,13 @@ internal class PokemonServiceImpl(factory: ServiceFactory) : PokemonService {
         }
     }
 
-    override suspend fun getPokemonDetails(identifier: String) : PokemonDetailsResponseModel {
+    override suspend fun getPokemonDetails(identifier: String) : PokemonDetailsResult {
         try {
             val response = service.getPokemonDetails(POKEMON_URL + identifier).execute()
-            return response.body()!!
+            val evolutionChain = service.getEvolutionChainUrl(POKEMON_SPECIES_URL + identifier).execute()
+            val pokemonChain = service.getEvolutionChain(evolutionChain.body()!!.evolutionChain?.url!!).execute()
+
+            return PokemonDetailsResult(response.body()!!, pokemonChain.body()!!)
         } catch (e: Exception) {
             throw IOException(e.message)
         } catch (e: IOException) {

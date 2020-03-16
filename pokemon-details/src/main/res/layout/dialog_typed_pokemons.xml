@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/pokemonType"
         tools:itemCount="3"
-        tools:listitem="@layout/view_holder_typed_pokemon_horizontal"
+        tools:listitem="@layout/view_holder_named_pokemon_horizontal"
         tools:orientation="horizontal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

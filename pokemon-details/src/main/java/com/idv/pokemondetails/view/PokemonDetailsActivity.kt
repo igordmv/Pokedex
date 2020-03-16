@@ -1,7 +1,6 @@
 package com.idv.pokemondetails.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -14,18 +13,19 @@ import com.globo.globosatplay.core.ImageConverter
 import com.idv.core.extensions.runOnUI
 import com.idv.pokemondetails.PokemonDetailsController
 import com.idv.pokemondetails.R
+import com.idv.pokemondetails.view.adapter.PokemonChainAdapter
 import com.idv.pokemondetails.view.adapter.PokemonDetailsAdapter
 import com.idv.pokemondetails.view.adapter.PokemonTypeAdapter
 import kotlinx.android.synthetic.main.activity_pokemon_details.*
 import kotlinx.android.synthetic.main.dialog_ability.view.*
-import kotlinx.android.synthetic.main.dialog_typed_pokemons.*
 import kotlinx.android.synthetic.main.dialog_typed_pokemons.view.*
 
 class PokemonDetailsActivity : AppCompatActivity() {
 
     private var controller: PokemonDetailsController? = null
     private lateinit var pokemonImagesAdapter: PokemonDetailsAdapter
-    private lateinit var pokemonTypeAdapter: PokemonTypeAdapter
+    private lateinit var typedPokemonAdapter: PokemonTypeAdapter
+    private lateinit var chainPokemonAdapter: PokemonChainAdapter
     private var typedDialog : AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,7 +88,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
             typedDialog = dialogBuilder.create()
             typedDialog?.show()
             dialogView.pokemonType.text = type.first().type.capitalize()
-            pokemonTypeAdapter =
+            typedPokemonAdapter =
                 PokemonTypeAdapter(
                     this,
                     type as MutableList<TypedPokemonsViewModel>
@@ -97,7 +97,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
             mLayoutManager.orientation = RecyclerView.HORIZONTAL
             dialogView.pokemonTypeImageRecyclerView?.apply {
                 layoutManager = mLayoutManager
-                adapter = pokemonTypeAdapter
+                adapter = typedPokemonAdapter
                 visibility = View.VISIBLE
             }
 
@@ -215,8 +215,23 @@ class PokemonDetailsActivity : AppCompatActivity() {
                         }
                     }
                 }
+                pokemonDetails.evolutionChain?.let { evolutionChain ->
+                    evolutionChainText.visibility = View.VISIBLE
+                    chainPokemonAdapter =
+                        PokemonChainAdapter(
+                            this,
+                            evolutionChain as MutableList<PokemonEvolutionChainViewModel>
+                        )
+                    val mLayoutManager = LinearLayoutManager(this)
+                    mLayoutManager.orientation = RecyclerView.HORIZONTAL
+                    pokemonChainRecyclerView?.apply {
+                        layoutManager = mLayoutManager
+                        adapter = chainPokemonAdapter
+                        visibility = View.VISIBLE
+                    }
+                }
+
                 pokemonName.text = pokemonDetails.name?.capitalize()
-                pokemonDetailsCardView.visibility = View.VISIBLE
             }
         }
     }
