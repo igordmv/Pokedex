@@ -232,6 +232,7 @@ class PokemonDetailsActivity : AppCompatActivity() {
                 }
 
                 pokemonName.text = pokemonDetails.name?.capitalize()
+                detailsContent.visibility = View.VISIBLE
             }
         }
     }
