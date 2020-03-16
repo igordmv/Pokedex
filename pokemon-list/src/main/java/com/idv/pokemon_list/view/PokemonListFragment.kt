@@ -167,8 +167,6 @@ abstract class PokemonListFragment : StatelessFragment(), SearchView.OnQueryText
         query = message
         val editableText = Editable.Factory().newEditable(message)
         afterTextChanged(editableText)
-        Log.e("IGOR2", message)
-
         runOnUI {
             searchViewText.text = editableText
             searchViewText.clearFocus()

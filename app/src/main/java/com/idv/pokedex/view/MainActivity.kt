@@ -71,7 +71,6 @@ class MainActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         if (Intent.ACTION_SEARCH == intent?.action) {
             val message = intent.getStringExtra(SearchManager.QUERY)
-            Log.e("IGOR1", message)
             if (currentFragment is PokemonListFragmentApp) {
                 (currentFragment as PokemonListFragmentApp).setSpelledQuery(message)
             }
